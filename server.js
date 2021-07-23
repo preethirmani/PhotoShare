@@ -11,6 +11,7 @@ const app = express();
 app.use(express.urlencoded());
 app.use(express.json());
 
+
 //db connect
 const db = keys.mongoURI;
 mongoose.connect(db)
@@ -24,6 +25,6 @@ const port = 5500;
 app.listen(port, () => console.log(`Server running on Port ${port}!`));
 
 //Use Route
-app.use('/api/users',users);
+app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts',posts);
