@@ -85,5 +85,15 @@ router.post('/login', (req, res) => {
 //@route  POST  /api/users/forgotPassword
 //@desc   User ForgotPassword
 //@access Public 
-
+router.post('/forgotPassword',(req, res) => {
+  User.findOne({email: req.body.email})
+      .then(user => {
+        if(!user) {
+          return res.status(400).json({email:'User not found...Please register!'});
+        } else {
+          return res.json(user);
+        }
+      })
+      .catch(err => console.log(err))
+});
 module.exports = router;
