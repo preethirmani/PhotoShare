@@ -10,6 +10,11 @@ const sendGridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require('crypto');
 const router = express.Router();
 
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
+const validateforgotPasswordInput = require('../../validation/forgot-password');
+const validateChangePasswordInput = require('../../validation/change-password');
+
 const transporter = nodeMailer.createTransport(sendGridTransport({
   auth:{
     api_key:key.apiKey
@@ -21,6 +26,13 @@ const transporter = nodeMailer.createTransport(sendGridTransport({
 //@desc   User Registration
 //@access Public 
 router.post('/register', (req, res) =>  {
+//Validation
+
+const {errors, isValid} = validateRegisterInput(req.body);
+if(!isValid) {
+  return res.status(400).json(errors)
+}
+
   User.findOne({email:req.body.email})
       .then(user => {
         if(user) {
@@ -68,6 +80,13 @@ router.post('/register', (req, res) =>  {
 //@access Public 
 
 router.post('/login', (req, res) => {
+
+  //Validation
+  const {errors, isValid} = validateLoginInput(req.body);
+    if(!isValid) {
+        return res.status(400).json(errors)
+    }
+
   User.findOne({email:req.body.email})
       .then(user => {
           if(!user) {
@@ -112,6 +131,13 @@ router.get('/current',
 //@desc   User ForgotPassword
 //@access Public 
 router.post('/forgotPassword',(req, res) => {
+
+  //Validation
+  const {errors, isValid} = validateforgotPasswordInput(req.body);
+  if(!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({email:req.body.email})
       .then(user => {
         if(!user) {
@@ -152,6 +178,12 @@ router.post('/forgotPassword',(req, res) => {
 //@access Public 
 
 router.post('/changePassword', (req,res) => {
+ //Validation
+  const {errors, isValid} = validateChangePasswordInput(req.body);
+  if(!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({email: req.body.email})
       .then(user => {
         if(!user) {
