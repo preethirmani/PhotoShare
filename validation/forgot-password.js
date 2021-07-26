@@ -1,9 +1,11 @@
 const Validator = require('validator');
 const isEmpty = require('./is-empty');
 
-let errors = {};
+
 
 module.exports = validateforgotPasswordInput = data => {
+  let errors = {};
+  
   if(!Validator.isEmail(data.email)) {
     errors.email = 'Invalid email!';
   }

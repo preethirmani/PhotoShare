@@ -187,8 +187,10 @@ router.post('/changePassword', (req,res) => {
   User.findOne({email: req.body.email})
       .then(user => {
         if(!user) {
+          console.log('User::'+user);
           return res.status(400).json({email:'User does not exist... Please register!'});
         } else {
+          console.log('User::'+user);
           bcrypt.compare(req.body.oldPassword,user.password, (err, success) => {
             //NewPassword Encyption
             bcrypt.genSalt(10, (err, salt) => {
