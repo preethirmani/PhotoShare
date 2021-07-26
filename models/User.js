@@ -14,6 +14,9 @@ const newUser = new schema({
     type: String,
     required: true
   },
+  oldPassword: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now

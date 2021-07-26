@@ -5,7 +5,16 @@ const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const key = require('../../config/keys');
 const passport = require('passport');
+const nodeMailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
+const crypto = require('crypto');
 const router = express.Router();
+
+const transporter = nodeMailer.createTransport(sendGridTransport({
+  auth:{
+    api_key:key.apiKey
+  }
+}));
 
 
 //@route  POST  /api/users/register
@@ -38,7 +47,14 @@ router.post('/register', (req, res) =>  {
              if(err) throw err;
              newUser.password = hash;
              newUser.save()
-                    .then(user => res.json(user))
+                    .then(user => {
+                      transporter.sendMail({
+                        to:user.email,
+                        from:'iinfo.photoshare@gmail.com',
+                        subject:'Registered Suuccessfully!',
+                        html:'<h1>Welcome to Photoshare!!!</h1>'
+                      })
+                      return res.json(user)})
                     .catch(err => console.log(err))
            })
          })
@@ -55,7 +71,7 @@ router.post('/login', (req, res) => {
   User.findOne({email:req.body.email})
       .then(user => {
           if(!user) {
-            return res.status(400).json({email:'User not found...Please register!'});
+            return res.status(400).json({email:'User does not exist...Please register!'});
           } else {
             bcrypt.compare(req.body.password, user.password, (err, success) => {
               if(err) throw err;
@@ -96,14 +112,69 @@ router.get('/current',
 //@desc   User ForgotPassword
 //@access Public 
 router.post('/forgotPassword',(req, res) => {
+  User.findOne({email:req.body.email})
+      .then(user => {
+        if(!user) {
+          return res.status(400).json({email:'User does not exist... Please register!'});
+        } else {
+          //Generate token(OTP)
+          crypto.randomBytes(4,(err, buffer) => {
+            if(err) throw err;
+            const token = buffer.toString('hex');
+
+            //Email token(OTP)
+            transporter.sendMail({
+              to:user.email,
+              from:'iinfo.photoshare@gmail.com',
+              subject:'One Time Password',
+              html:`<p>Requested One Time Password is :${token}</p>`
+            });
+
+            //Encrypt OTP
+            bcrypt.genSalt(10, (err, salt) => {
+              if(err) throw err;
+              bcrypt.hash(token, salt, (err, hash) => {
+                if(err) throw err;
+                user.password = hash;
+                user.save()
+                    .then(updatedUser => res.json(updatedUser))
+                    .catch(err => console.log(err));
+              })
+            });
+          });
+        }
+      })
+      .catch(err => console.log(err));
+});
+
+//@route  POST  /api/users/changePassword
+//@desc   User Change Password
+//@access Public 
+
+router.post('/changePassword', (req,res) => {
   User.findOne({email: req.body.email})
       .then(user => {
         if(!user) {
-          return res.status(400).json({email:'User not found...Please register!'});
+          return res.status(400).json({email:'User does not exist... Please register!'});
         } else {
-          //Create a token
+          bcrypt.compare(req.body.oldPassword,user.password, (err, success) => {
+            //NewPassword Encyption
+            bcrypt.genSalt(10, (err, salt) => {
+              if(err) throw err;
+              bcrypt.hash(req.body.password, salt, (err, hash) => {
+                if(err) throw err;
+                user.password = hash;
+                user.save()
+                    .then(updatedUser => res.json(updatedUser))
+                    .catch(err => console.log(err))
+              })
+            })
+
+          });
         }
+
       })
       .catch(err => console.log(err))
-});
+})
+
 module.exports = router;
