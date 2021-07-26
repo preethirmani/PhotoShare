@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const key = require('../../config/keys');
+const passport = require('passport');
 const router = express.Router();
 
 
@@ -81,6 +82,15 @@ router.post('/login', (req, res) => {
       .catch(err => console.log(err))
 });
 
+//@route  GET  /api/users/current
+//@desc   User Authorization
+//@access Private 
+router.get('/current', 
+            passport.authenticate('jwt',{session:false}),
+            (req, res) => {
+              res.json(req.user);
+            });
+
 
 //@route  POST  /api/users/forgotPassword
 //@desc   User ForgotPassword
@@ -91,7 +101,7 @@ router.post('/forgotPassword',(req, res) => {
         if(!user) {
           return res.status(400).json({email:'User not found...Please register!'});
         } else {
-          return res.json(user);
+          //Create a token
         }
       })
       .catch(err => console.log(err))

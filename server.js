@@ -1,15 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const keys = require('./config/keys');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
-const { urlencoded } = require('express');
 const app = express();
 
 //body-parser config
 app.use(express.urlencoded());
 app.use(express.json());
+
+//Passport config
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 
 
 //db connect
