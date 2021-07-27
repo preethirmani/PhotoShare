@@ -8,12 +8,20 @@ const ProfileSchema = new Schema({
   },
   handle: {
     type: String,
-    required:true
+    required:true,
+    max: 40
   },
-  bio: {
+  
+  gender: {
     type: String
   },
   website: {
+    type: String
+  },
+   bio: {
+    type: String
+  },
+  phoneNumber: {
     type: String
   },
   location: {
@@ -21,40 +29,35 @@ const ProfileSchema = new Schema({
   },
   following: [
     {
-      userId: {
+      user: {
         type: String,
-        required: true,
+        required: true
+      },
+      handle: {
+        type: String,
+        required: true
+      },
+      avatar: {
+        type: String
       }
     }
   ],
-
-    followers: [
+  followers: [
     {
-      userId: {
+      user: {
         type: String,
-        required: true,
+        required: true
+      },
+       handle: {
+        type: String,
+        required: true
+      },
+      avatar: {
+        type: String
       }
     }
-  ],
-
-   social: {
-    youtube: {
-      type: String,
-    },
-    twitter: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    linkedin: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
-  }
-
+  ]
+   
 });
 
 module.exports = Profile = mongoose.model('profiles', ProfileSchema);
