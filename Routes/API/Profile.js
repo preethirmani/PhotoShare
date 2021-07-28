@@ -10,8 +10,7 @@ const User = require('../../models/User');
 //@access Private 
 router.post('/', passport.authenticate('jwt', {session:false}), 
   (req, res) => {
-    console.log('req.user.id::'+req.user.id);
-     console.log('req.body.handle::'+req.body.handle);
+
     const profileFields = {};
     profileFields.user = req.user.id;
     if(req.body.handle) profileFields.handle = req.body.handle;
@@ -54,8 +53,8 @@ router.post('/', passport.authenticate('jwt', {session:false}),
     });
 
 
-//@route  POST  /api/profile/follow/:user_id
-//@desc   Follow Other's Profile
+//@route  GET  /api/profile/follow/:user_id
+//@desc   Follow Other User's Profile & Add Curren't user As Follower
 //@access Private
 
 router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
@@ -66,7 +65,8 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
          .then(profile => {
            if(profile) {
              //Is the User in following array
-            if((profile.following.map(followng => followng.user === req.params.user_id)).length > 0) { 
+             const followingArr = profile.following.filter(item => item.user.toString() === req.params.user_id.toString);
+            if(followingArr.length > 0) { 
               res.status(400).json({follow:'Cannot follow...User is already being followed!!!'});
             } else {
               //Find User's Details
@@ -86,7 +86,7 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
                              .then(savedProfile => console.log(savedProfile))
                              .catch(err => console.log(err))
 
-                      //Add to User's followers Array
+                      //Add the Current User into Other User's followers Array
                       const newFollower = {
                         user:profile.user._id,
                         handle:profile.handle,
@@ -100,14 +100,9 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
                     } else {
                         res.status(400).json({user:'User not found'});
                     }
-
-                    
-
                   })
                   .catch(err => console.log(err))
-              
             }
-
            } else {
              res.status(400).json({profile:'Profile does not exists'});
            }
@@ -115,6 +110,54 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
          .catch(err => console.log(err))
 })
   
+
+
+//@route  GET  /api/profile/unFollow/:user_id
+//@desc   UnFollow Other User's Profile
+//@access Private
+
+router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
+(req, res) => {
+ 
+  Profile.findOne({user: req.user.id}) 
+        .then(profile => {
+          if(profile) {
+            //Remove Index for current user's Following Array
+            const removeIndex = profile.following.map(item => item.user)
+                                        .indexOf(req.params.user_id);
+                                        
+            if(removeIndex === -1) {
+              res.status(404).json({following:'User not found in following array!'});
+            }
+            //Deleting the user from Following Array
+            profile.following.splice(removeIndex,1);
+            profile.save()
+                   .then(updatedProfile => console.log(updatedProfile))
+                   .catch(err => console.log(err))
+
+            Profile.findOne({user: req.params.user_id}) 
+                   .then(profile2 => {
+                     //Remove Index for Current User
+                     const removeIndex2 = profile2.followers.map(item => item.user)
+                                                  .indexOf(req.user.id);
+
+                    if(removeIndex2 === -1) {
+                      res.status(404).json({followers:'User nof found in followers array'});
+                    }
+                    profile2.followers.splice(removeIndex2,1);
+                    profile2.save()
+                            .then(updatedProfile2 => res.json(updatedProfile2))
+                            .catch(err => console.log(err))
+                   })
+                   .catch(err => console.log(err))
+          } else {
+            res.status(400).json({profile:'Profile does not exist!'})
+          }
+        })
+        .catch(err => console.log(err))
+})
+  
+
 
 //@route  GET  /api/profile
 //@desc   Get Current User's Profile
@@ -170,40 +213,80 @@ router.get('/handle/:handle', passport.authenticate('jwt', {session:false}),
 
 
 
-
-
-
 //@route  GET  /api/profile/suggestions
 //@desc   Recommendations For Current User
 //@access Private
+
 router.get('/suggestions', passport.authenticate('jwt', {session:false}), 
 (req, res) => {
-  
-  Profile.findOne({user: req.user.id})
+  console.log('user from authentication:'+req.user.name);
+  Profile.findOne({user:req.user.id})
         .then(profile => {
-          if(profile) {
-            //Extracting Current User's followers id
-            const followrs = profile.following.map(item => item.user.toString());
-            console.log(followrs);
-            Profile.find()
-            .then(profiles => {
-              if(!profiles) {
-                res.status(404).json({profiles:'Sorry No Suggestions!!!'})
-              } else {
-                //Filter out Current User Profile and Current User's Followers
-                console.log(profiles);
-                const suggestions = profiles.filter(item => {
-                  item.id !== profile.id && !(followrs.include(item.following.user.toString())) 
-                })
-                return res.json('Suggestion::'+suggestions);
-              }
-            })
+          if(!profile) {
+            res.status(400).json({profile:'Profile does not exist!'})
           } else {
-            res.status(400).json({profile:'Profile does not exist'});
+            Profile.find()
+                   .populate('user',['name','avatar'])
+                   .then(profiles => {
+                     if(!profiles) {
+                       res.status(400).json({profiles:'No Suggestions!'});
+                     } else {
+                       console.log('profile.following.length::' + profile.following.length);
+                       if(profile.following.length >= 1) {
+                         const followersArr = profile.following.map(item => item.user.toString());
+                         console.log("followersArr.Length"+ followersArr.length);
+                         const suggestions = profiles.filter(item => 
+                                              (item.id !== profile.id) && 
+                                              (followersArr.includes(item.user._id) == false) );
+                        console.log("profiles.Length"+ profiles.length);
+                        console.log("suggestions.Length"+ suggestions.length);
+                         res.json(suggestions);
+
+                     } else {
+                       res.json(profiles);
+                     }
+                     }
+
+                   })
+                   .catch(err => console.log(err));
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err));  
 });
+
+
+//@route  GET  /api/profile/followers
+//@desc   Get list of followers
+//@access Private
+router.get('/followers', passport.authenticate('jwt', {session:false}),
+(req, res) => {
+  Profile.findOne({user: req.user.id})
+         .then(profile => {
+           if(!profile) {
+            res.status(400).json({profile:'Profile does not exist!'})
+           } else {
+             res.json(profile.followers);
+           }
+         })
+         .catch(err => console.log(err))
+})
+
+//@route  GET  /api/profile/following
+//@desc   Get list of following users info
+//@access Private
+router.get('/followers', passport.authenticate('jwt', {session:false}),
+(req, res) => {
+  Profile.findOne({user: req.user.id})
+         .then(profile => {
+           if(!profile) {
+            res.status(400).json({profile:'Profile does not exist!'})
+           } else {
+             res.json(profile.following);
+           }
+         })
+         .catch(err => console.log(err))
+})
+
 
 //@route  DELETE  /api/profile/delete
 //@desc   Delete Profile
