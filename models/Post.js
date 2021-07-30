@@ -7,8 +7,8 @@ const postSchema = new Schema({
     ref: 'users'
   },
   name: {
-    type: String,
-    required: true
+    type: String
+    
   },
   avatar: {
     type: String
@@ -38,8 +38,8 @@ const postSchema = new Schema({
     ref: 'users'
   },
   name: {
-    type: String,
-    required: true
+    type: String
+    
   },
   avatar: {
     type: String
