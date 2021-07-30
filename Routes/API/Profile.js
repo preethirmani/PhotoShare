@@ -65,7 +65,7 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
          .then(profile => {
            if(profile) {
              //Is the User in following array
-             const followingArr = profile.following.filter(item => item.user.toString() === req.params.user_id.toString);
+             const followingArr = profile.following.filter(item => item.user.toString() === req.params.user_id.toString());
             if(followingArr.length > 0) { 
               res.status(400).json({follow:'Cannot follow...User is already being followed!!!'});
             } else {
