@@ -86,6 +86,7 @@ router.get('/user_id/:user_id', passport.authenticate('jwt',{session: false}),
 // @access private
 router.get('/handle/:handle', passport.authenticate('jwt',{session: false}),
 (req, res) => {
+  
   Post.find({handle:req.params.handle})
       .then(posts => {
         if(!posts) {

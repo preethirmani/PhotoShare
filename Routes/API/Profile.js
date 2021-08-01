@@ -1,3 +1,4 @@
+const { compareSync } = require('bcryptjs');
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
@@ -75,7 +76,7 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
              //Is the User in following array
              const followingArr = profile.following.filter(item => item.user.toString() === req.params.user_id.toString());
             if(followingArr.length > 0) { 
-              res.status(400).json({follow:'Cannot follow...User is already being followed!!!'});
+              return res.status(400).json({follow:'Cannot follow...User is already being followed!!!'});
             } else {
               //Find User's Details
               Profile.findOne({user: req.params.user_id})
@@ -106,13 +107,13 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
                             .catch(err => console.log(err))
 
                     } else {
-                        res.status(400).json({user:'User not found'});
+                        return res.status(400).json({user:'User not found'});
                     }
                   })
                   .catch(err => console.log(err))
             }
            } else {
-             res.status(400).json({profile:'Profile does not exists'});
+             return res.status(400).json({profile:'Profile does not exists'});
            }
          })
          .catch(err => console.log(err))
@@ -135,7 +136,7 @@ router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
                                         .indexOf(req.params.user_id);
                                         
             if(removeIndex === -1) {
-              res.status(404).json({following:'User not found in following array!'});
+              return res.status(404).json({following:'User not found in following array!'});
             }
             //Deleting the user from Following Array
             profile.following.splice(removeIndex,1);
@@ -150,7 +151,7 @@ router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
                                                   .indexOf(req.user.id);
 
                     if(removeIndex2 === -1) {
-                      res.status(404).json({followers:'User nof found in followers array'});
+                      return res.status(404).json({followers:'User nof found in followers array'});
                     }
                     profile2.followers.splice(removeIndex2,1);
                     profile2.save()
@@ -159,7 +160,7 @@ router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
                    })
                    .catch(err => console.log(err))
           } else {
-            res.status(400).json({profile:'Profile does not exist!'})
+            return res.status(400).json({profile:'Profile does not exist!'})
           }
         })
         .catch(err => console.log(err))
@@ -176,9 +177,9 @@ router.get('/', passport.authenticate('jwt', {session:false}),
          .populate('user',['name','avatar'])
          .then(profile => {
            if(!profile){
-             res.status(400).json({profile:'Profile not found'});
+             return res.status(400).json({profile:'Profile not found'});
            } else {
-             res.json(profile);
+             return res.json(profile);
            }
          })
          .catch(err => console.log(err))
@@ -193,9 +194,9 @@ router.get('/id/:id', passport.authenticate('jwt', {session:false}),
           .populate('user', ['name','email','avatar'])
           .then(profile => {
             if(profile) {
-              res.json(profile);
+              return res.json(profile);
             } else {
-              res.status(400).json({profile:'Profile not found!'});
+              return res.status(400).json({profile:'Profile not found!'});
             }
           })
           .catch(err => console.log(err))
@@ -211,9 +212,9 @@ router.get('/handle/:handle', passport.authenticate('jwt', {session:false}),
           .populate('user', ['name','email','avatar'])
           .then(profile => {
             if(profile) {
-              res.json(profile);
+              return res.json(profile);
             } else {
-              res.status(400).json({profile:'Profile not found!'});
+              return res.status(400).json({profile:'Profile not found!'});
             }
           })
           .catch(err => console.log(err))
@@ -231,28 +232,19 @@ router.get('/suggestions', passport.authenticate('jwt', {session:false}),
   Profile.findOne({user:req.user.id})
         .then(profile => {
           if(!profile) {
-            res.status(400).json({profile:'Profile does not exist!'})
+            return res.status(400).json({profile:'Profile does not exist!'})
           } else {
             Profile.find()
                    .populate('user',['name','avatar'])
                    .then(profiles => {
                      if(!profiles) {
-                       res.status(400).json({profiles:'No Suggestions!'});
+                       return res.status(400).json({profiles:'No Suggestions!'});
                      } else {
-                       console.log('profile.following.length::' + profile.following.length);
-                       if(profile.following.length >= 1) {
                          const followersArr = profile.following.map(item => item.user.toString());
-                         console.log("followersArr.Length"+ followersArr.length);
                          const suggestions = profiles.filter(item => 
                                               (item.id !== profile.id) && 
-                                              (followersArr.includes(item.user._id) == false) );
-                        console.log("profiles.Length"+ profiles.length);
-                        console.log("suggestions.Length"+ suggestions.length);
-                         res.json(suggestions);
-
-                     } else {
-                       res.json(profiles);
-                     }
+                                              (followersArr.includes(item.user._id) == false));
+                        return res.json(suggestions);
                      }
 
                    })
@@ -271,9 +263,9 @@ router.get('/followers', passport.authenticate('jwt', {session:false}),
   Profile.findOne({user: req.user.id})
          .then(profile => {
            if(!profile) {
-            res.status(400).json({profile:'Profile does not exist!'})
+            return res.status(400).json({profile:'Profile does not exist!'})
            } else {
-             res.json(profile.followers);
+             return res.json(profile.followers);
            }
          })
          .catch(err => console.log(err))
@@ -287,9 +279,9 @@ router.get('/following', passport.authenticate('jwt', {session:false}),
   Profile.findOne({user: req.user.id})
          .then(profile => {
            if(!profile) {
-            res.status(400).json({profile:'Profile does not exist!'})
+            return res.status(400).json({profile:'Profile does not exist!'})
            } else {
-             res.json(profile.following);
+             return res.json(profile.following);
            }
          })
          .catch(err => console.log(err))
