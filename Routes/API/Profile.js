@@ -2,15 +2,23 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
+//Load Data Model
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+
+const validateProfileInput = require('../../validation/profile');
 
 //@route  POST  /api/profile
 //@desc   Create or Edit Profile
 //@access Private 
 router.post('/', passport.authenticate('jwt', {session:false}), 
   (req, res) => {
-
+  
+  //Validating User Input
+  const {errors, isValid} = validateProfileInput(req.body);
+  if(!isValid) {
+    return res.status(404).json(errors);
+  }
     const profileFields = {};
     profileFields.user = req.user.id;
     if(req.body.handle) profileFields.handle = req.body.handle;
@@ -274,7 +282,7 @@ router.get('/followers', passport.authenticate('jwt', {session:false}),
 //@route  GET  /api/profile/following
 //@desc   Get list of following users info
 //@access Private
-router.get('/followers', passport.authenticate('jwt', {session:false}),
+router.get('/following', passport.authenticate('jwt', {session:false}),
 (req, res) => {
   Profile.findOne({user: req.user.id})
          .then(profile => {

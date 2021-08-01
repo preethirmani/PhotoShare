@@ -3,13 +3,24 @@ const passport = require('passport');
 const router = express.Router();
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-const Profile = require('../../models/Profile')
+const Profile = require('../../models/Profile');
+
+// Validation
+const validatePostInput = require('../../validation/posts');
 
 // @route POST /api/posts
 // @desc create post
 // @access Private
 router.post('/', passport.authenticate('jwt',{session:false}),
 (req,res) =>{
+
+  // Check Validation
+  const {errors, isValid} = validatePostInput(req.body);
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
+
     Profile.findOne({user: req.user.id})
            .then(profile => {
             
@@ -49,6 +60,36 @@ router.get('/id/:id', passport.authenticate('jwt',{session: false}),
       .then(posts => {
         if(!posts) {
           return res.status(404).json({posts:'No Posts found for the id!'});
+        } 
+        res.json(posts);
+      })
+      .catch(err => console.log(err))
+});
+
+// @route GET api/posts/user_id/:user_id
+// @desc Get posts by post user id
+// @access private
+router.get('/user_id/:user_id', passport.authenticate('jwt',{session: false}),
+(req, res) => {
+  Post.find({user:req.params.user_id})
+      .then(posts => {
+        if(!posts) {
+          return res.status(404).json({posts:'No Posts found for the user!'});
+        } 
+        res.json(posts);
+      })
+      .catch(err => console.log(err))
+});
+
+// @route GET api/posts/handle/:handle
+// @desc Get posts by post handle
+// @access private
+router.get('/handle/:handle', passport.authenticate('jwt',{session: false}),
+(req, res) => {
+  Post.find({handle:req.params.handle})
+      .then(posts => {
+        if(!posts) {
+          return res.status(404).json({posts:'No Posts found for the user!'});
         } 
         res.json(posts);
       })
@@ -96,10 +137,14 @@ router.post('/like/:id', passport.authenticate('jwt',{session: false}),
                 if(post){
                    if(
                    post.likes.filter(like => 
-                    (like.user.toString() === req.user.id)) >= 1) {
+                    (like.user.toString() === req.user.id)).length >= 1) {
                       return res.status(400).json({post:'Post already liked'});
                     } else {
-                      post.likes.unshift({user:req.user.id});
+                      const newLike = {
+                        user: req.user.id,
+                        handle: (profile.handle)?profile.handle:''
+                      }
+                      post.likes.unshift(newLike);
                       post.save()
                           .then(post => res.json(post));
                     }
@@ -151,9 +196,17 @@ router.post('/unLike/:id', passport.authenticate('jwt',{session: false}),
 // @access private
 router.post('/comment/:id', passport.authenticate('jwt',{session:false}),
 (req,res) => {
-  
-  Post.findById(req.params.id)
-      .then(post => {
+
+  // Check Validation
+  const {errors, isValid} = validatePostInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+  Profile.findOne({user:req.user.id}) 
+         .then(profile=> {
+
+          Post.findById(req.params.id)
+              .then(post => {
         if(!post) {
           return res.status(400).json({notFound:'Post not found!'});
         } else {
@@ -161,26 +214,33 @@ router.post('/comment/:id', passport.authenticate('jwt',{session:false}),
             user: req.user.id,
             name: req.body.name,
             avatar: req.body.avatar,
-            text: req.body.text
+            text: req.body.text,
+            handle: (profile.handle)?profile.handle:''
+            
           };
           post.comments.unshift(newComment);
           post.save()
               .then(updatedPost => res.json(updatedPost))
               .catch(err => console.log(err));
         }
-
       })
       .catch(err => console.log(err));
 
+         })
+         .catch(err => console.log(err))
+  
+
 });
 
-// @route POST api/posts/delete/comment/:id/:comment_id
+// @route DELETE api/posts/comment/delete/:post_id/:comment_id
 // @desc delete comment a post 
 // @access private
 
-router.post('delete/comment/:id/:comment_id', passport.authenticate('jwt',{sessionfalse: false}),
+router.delete('/comment/delete/:post_id/:comment_id', 
+passport.authenticate('jwt',{session: false}),
 (req,res) => {
-  Post.findById(req.params.id)
+  
+  Post.findById(req.params.post_id)
       .then(post => {
         if(!post) {
           return res.status(400).json({postNotFound:'Post not found!'})
@@ -194,13 +254,11 @@ router.post('delete/comment/:id/:comment_id', passport.authenticate('jwt',{sessi
                 post.comments.splice(removeIndex,1);
                 post.save()
                     .then(updatedPost => res.json(updatedPost))
-                    .catch(console.log(err));
+                    .catch(err => console.log(err));
             }
           }
-
         })
       .catch(err => console.log(err));
-
 });
 
 

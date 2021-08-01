@@ -29,7 +29,8 @@ const postSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref:'users'
-      }
+      },
+      handle: String
     }
   ],
   comments: [{
@@ -39,7 +40,9 @@ const postSchema = new Schema({
   },
   name: {
     type: String
-    
+  },
+  handle: {
+    type: String
   },
   avatar: {
     type: String
