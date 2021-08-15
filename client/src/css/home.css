@@ -1,0 +1,43 @@
+.main-div-home {
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+
+}
+
+.posts-wrapper {
+  padding: 8px;
+}
+
+.card-posts {
+  width: 32rem;
+  flex-direction: column;
+  margin: 2px;
+  
+}
+
+.img-posts-home {
+  padding: 2px;
+  width: 32rem;
+  height: 36rem;
+}
+
+.home-comment {
+  width: 30rem;
+}
+
+.div-suggestions {
+  display: inline;
+  width: 18rem;
+  
+}
+
+
+
+
+/** Media Query **/
+@media (max-width: 600px) {
+  .div-suggestions {
+    display:none;
+  }
+}

@@ -1,0 +1,83 @@
+.form-grp-div {
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+.form-label-edit {
+  margin-top: 5px;
+  margin-left: 25px;
+  padding: 5px;
+  font-weight: 700;
+}
+
+.editPrfl-wrapper {
+ 
+    width:40rem;
+  
+   padding: 0px;
+}
+
+.card-header {
+   width: 100%;
+   border-bottom: 1px solid grey;
+}
+
+
+
+.form-edit-prfl {
+ 
+  padding: 4px;
+}
+
+.frm-ctrl-edit {
+  width: 45%;
+  margin-left: 80px;
+}
+
+.btn-edit-prfl {
+  width: 10rem;
+  justify-self:center;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+
+.frm-ctrl-bio {
+  width: 45%;
+  margin-left: 114px;
+}
+
+.frm-ctrl-phNum {
+  width: 45%;
+  margin-left: 32px;
+}
+
+.frm-ctrl-gndr {
+  width: 45%;
+  margin-left:84px;
+}
+
+.frm-ctrl-Website {
+  width: 45%;
+  margin-left: 79px;
+}
+
+.frm-ctrl-location {
+  width: 45%;
+  margin-left: 74px;
+}
+
+.frm-ctrl-handle {
+  width: 45%;
+  margin-left: 89px;
+}
+
+.frm-ctrl-email {
+  width: 45%;
+  margin-left: 98px;
+}
+
+.frm-ctrl-name {
+  width: 45%;
+  margin-left: 96px;
+}

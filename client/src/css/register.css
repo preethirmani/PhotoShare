@@ -1,0 +1,69 @@
+.main-div-register {
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  position: relative;
+}
+
+.form-control-register{
+  padding: 10px;
+}
+
+.register-wrapper{
+  height: 29rem;
+  width: 25rem;
+  padding: 10px;
+  align-items: center;
+  margin-bottom: 50px;
+
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  font-family: 'MonteCarlo', cursive;
+  
+}
+
+
+
+.btn-primary{
+  border-radius: 5px;
+  width: 20rem;
+  height:2rem;
+  margin-top: 15px;
+  background-color:#0095f6;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+  align-self: center;
+}
+
+
+.div-back-login {
+  border:1px solid #EAEAEA;
+  width: 25rem;
+  height: 2.75rem;
+  position: absolute;
+  bottom:0;
+  padding: 5px;
+  
+}
+
+.back-login {
+  color:#000;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.back-login:hover {
+  color: #000;
+}
+
+.p-text {
+  color: grey;
+  font-weight: bold;
+}
+

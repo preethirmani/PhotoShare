@@ -23,7 +23,9 @@ const newUser = new schema({
   },
   avatar: {
     type: String
-  }
+  },
+  resetToken: String,
+  expiredToken: Date
 });
 
 module.exports = User = mongoose.model('users', newUser);

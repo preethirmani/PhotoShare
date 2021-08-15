@@ -12,6 +12,7 @@
   "author": "Preethi Rajamani",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "gravatar": "^1.8.1",

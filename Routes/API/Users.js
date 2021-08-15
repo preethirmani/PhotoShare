@@ -147,13 +147,19 @@ router.post('/forgotPassword',(req, res) => {
           crypto.randomBytes(4,(err, buffer) => {
             if(err) throw err;
             const token = buffer.toString('hex');
+            user.resetToken = token;
+            user.expiredToken = Date.now() + 3600000;
+            
 
             //Email token(OTP)
             transporter.sendMail({
               to:user.email,
               from:'iinfo.photoshare@gmail.com',
-              subject:'One Time Password',
-              html:`<p>Requested One Time Password is :${token}</p>`
+              subject:'Password Reset',
+              html:`
+              <p>Please click on the link to reset your password :
+              <a href='http://localhost:5500/api/users/forgotPassword/${token}'>link</a>
+              </p>`
             });
 
             //Encrypt OTP

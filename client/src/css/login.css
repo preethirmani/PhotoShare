@@ -1,0 +1,73 @@
+.landing-img {
+  height: 550px;
+  width: 400px;
+  position: absolute;
+  right: 0px;
+}
+.col-img, .col-form{
+  margin-top: 100px;
+}
+
+.col-img {
+  position: relative;
+}
+
+.col-form{
+   width: 400px;
+}
+
+.card-sigin {
+  width: 25rem;
+  padding: 20px;
+  margin-top: 70px;
+  align-items: center;
+  
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  font-family: 'MonteCarlo', cursive;
+  
+}
+
+.input-form {
+  margin-top: 15px;
+}
+
+.form-control-input{
+  width: 18rem;
+  height:2rem;
+  margin-top: 15px;
+}
+
+.btn-primary{
+  border-radius: 5px;
+  width: 18rem;
+  height:2rem;
+  margin-top: 15px;
+  background-color:#0095f6;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+  align-self: center;
+}
+
+.sign-up-wrapper {
+  margin-top: 10px;
+}
+
+.forgot-password {
+  display: block;
+  font-size: 14px;
+}
+
+
+/** Media Query **/
+@media (max-width: 600px) {
+  .col-img {
+    display:none;
+  }
+
+}
+
