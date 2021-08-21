@@ -29,9 +29,7 @@ class ForgotPassword extends Component {
         <div className="form-group div-back-login">
       <Link className="back-login" to="/" >Back to Login</Link>
     </div>
-
       </div>
-
     </div>
     )
   }
