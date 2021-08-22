@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import  axios from 'axios';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { withRouter} from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 import '../../css/register.css';
 
@@ -22,6 +23,12 @@ class Register extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors});
+    }
+  }
+
   onSubmit(e) {
      e.preventDefault();
 
@@ -31,12 +38,7 @@ class Register extends Component {
        password:this.state.password,
        password2:this.state.password2
      };
-     this.props.registerUser(newUser);
-      //axios
-     //.post('/api/users/register', newUser)
-     //.then(res => console.log(res.data))
-     //.catch(err => console.log(err.response.data));
-
+     this.props.registerUser(newUser, this.props.history);
     
   }
 
@@ -50,7 +52,7 @@ class Register extends Component {
 
             <p className='p-text'>Sign up to see photos and videos from your friends.</p>
 
-            <form className= "input-form" onSubmit={this.onSubmit.bind(this)}>
+            <form className= "input-form" noValidate onSubmit={this.onSubmit.bind(this)}>
 
               <div className= "form-group form-control-register">
                 <input type="text" 
@@ -69,7 +71,7 @@ class Register extends Component {
                 <small id="emailHelp" className= "form-text text-muted">We'll never share your email with anyone else.</small>
                 
                 {errors.email && (
-                  <div className="invalid-feedback">{errors.name}</div>)}
+                  <div className="invalid-feedback">{errors.email}</div>)}
 
               </div>
 
@@ -80,7 +82,7 @@ class Register extends Component {
                 placeholder="Password"/>
 
                 {errors.password && (
-                  <div className="invalid-feedback">{errors.name}</div>)}
+                  <div className="invalid-feedback">{errors.password}</div>)}
 
               </div>
 
@@ -91,7 +93,7 @@ class Register extends Component {
                 placeholder="Confirm Password"/>
 
                 {errors.password2 && (
-                  <div className="invalid-feedback">{errors.name}</div>)}
+                  <div className="invalid-feedback">{errors.password2}</div>)}
 
               </div>
 
@@ -111,4 +113,14 @@ class Register extends Component {
   }
 }
 
-export default connect(null, {registerUser}) (Register);
+Register.prototypes = {
+  registerUser : PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, {registerUser}) (withRouter(Register));
