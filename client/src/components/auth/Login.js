@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect, Connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -24,7 +24,12 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({errors: nextProps.errors});
+    if(nextProps.auth.isAuthenticated) {
+      this.props.history.push('/home')
+    }
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors});
+    }
   }
 
   onSubmit(e) {
@@ -101,4 +106,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {loginUser}) (Login);
+export default connect(mapStateToProps, {loginUser}) (withRouter(Login));

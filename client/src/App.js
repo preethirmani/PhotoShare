@@ -2,6 +2,8 @@
 import React,{ Component } from 'react';
 import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import store from './store'
+import jwt_decode from 'jwt-decode';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
@@ -10,11 +12,33 @@ import Profile from './components/Profile/Profile';
 import Navbar from './components/layout/Navbar';
 import EditProfile from './components/Profile/EditProfile';
 import Home from './components/Home/Home';
-import store from './store'
+import setAuthToken from './utils/setAuthToken';
+
 
 import './App.css';
+import { SET_CURRENT_USER } from './actions/types';
+
+
+  if(localStorage.jwtToken){
+    //set token to auth header
+    setAuthToken(localStorage.jwtToken);
+
+    //Decode Token
+    const decoded = jwt_decode(localStorage.jwtToken);
+
+    //write to the store
+    store.dispatch({
+      type: SET_CURRENT_USER,
+      payload:decoded
+    })
+
+    window.location.href = '/home';
+
+  }
 
 class App extends Component {
+
+
 
   render() {
     return (
