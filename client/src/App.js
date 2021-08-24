@@ -13,11 +13,10 @@ import Navbar from './components/layout/Navbar';
 import EditProfile from './components/Profile/EditProfile';
 import Home from './components/Home/Home';
 import setAuthToken from './utils/setAuthToken';
-
-
 import './App.css';
 import { SET_CURRENT_USER } from './actions/types';
 import { logoutUser } from './actions/authActions';
+import CreatePost from './components/Posts/CreatePost';
 
 
   if(localStorage.jwtToken){
@@ -50,6 +49,7 @@ class App extends Component {
             <Route exact path='/editProfie' component={EditProfile}/>
             <Route exact path='/home' component={Navbar} />
             <Route exact path='/home' component={Home}/>
+            <Route exact path='/createPost' component={CreatePost}/>
             </div>
           </Router>
         </Provider>

@@ -27,6 +27,7 @@ router.post('/', passport.authenticate('jwt',{session:false}),
             const newPost = new Post({
             user: req.user.id,
             name: req.body.name,
+            image: req.body.image,
             avatar: req.body.avatar,
             text: req.body.text,
             handle: (profile)?profile.handle:''

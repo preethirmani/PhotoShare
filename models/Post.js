@@ -8,9 +8,11 @@ const postSchema = new Schema({
   },
   name: {
     type: String
-    
   },
   avatar: {
+    type: String
+  },
+  image: {
     type: String
   },
   text: {
