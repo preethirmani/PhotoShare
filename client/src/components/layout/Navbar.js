@@ -36,7 +36,7 @@ class Navbar extends Component {
                 <img className= "img-navbar" src={home} /></Link>
             </li>
             <li className= "nav-item">
-              <Link className= "nav-link" to="#">
+              <Link className= "nav-link" to="/createPost">
                 <img className= "img-navbar" src={newPost}/>
               </Link>
             </li>

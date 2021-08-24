@@ -13,11 +13,12 @@ const validatePostInput = require('../../validation/posts');
 // @access Private
 router.post('/', passport.authenticate('jwt',{session:false}),
 (req,res) =>{
-
+  console.log('req::'+req);
   // Check Validation
   const {errors, isValid} = validatePostInput(req.body);
     if (!isValid) {
       // If any errors, send 400 with errors object
+      console.log('Validation failed!!');
       return res.status(400).json(errors);
     }
 

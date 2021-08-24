@@ -49,6 +49,7 @@ class App extends Component {
             <Route exact path='/editProfie' component={EditProfile}/>
             <Route exact path='/home' component={Navbar} />
             <Route exact path='/home' component={Home}/>
+            <Route exact path='/createPost' component={Navbar} />
             <Route exact path='/createPost' component={CreatePost}/>
             </div>
           </Router>

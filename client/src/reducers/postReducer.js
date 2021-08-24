@@ -1,0 +1,4 @@
+const intialState = {
+  posts: [],
+  post: {}
+}

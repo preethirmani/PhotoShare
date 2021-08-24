@@ -1,7 +1,13 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { withRouter} from 'react-router-dom';
+import createPost from '../../css/createPost.css';
+import { createNewpost } from '../../actions/PostActions'
 
-export default class CreatePost extends Component {
+class CreatePost extends Component {
 
   constructor(props) {
     super(props);
@@ -28,6 +34,10 @@ export default class CreatePost extends Component {
     });
   }
 
+  onChange(e) {
+    this.setState({[e.target.name]:e.target.value});
+  }
+
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state.formData);
@@ -41,18 +51,47 @@ export default class CreatePost extends Component {
     .then(data => {
       console.log(data)
       const newPost = {
-        image: data.secure_url
+        image: data.secure_url,
+        text: this.state.text
       };
+      console.log('newPost.text::'+newPost.text);
+      this.props.createNewpost(newPost)
+    
     })
   }
 
   render() {
     return (
-      <div>
-        <label>Upload Photo</label>
-        <input type='file' onChange = {this.uploadImage.bind(this)}/>
-        <button onClick = {this.onSubmit.bind(this)} >Upload Image</button>
-      </div>
+    <div className= "row d-flex justify-content-center main-div-createPost ">
+       <div className='card crtPst-wrapper'>
+          <div className="card-header headr-crtPsr">
+              <h4 className="card-title title-crtPst">New Post</h4>
+          </div>
+          <div className='card-body card-createPost'>
+
+            <input type='file' className='crtPst inpt-crtPst '
+             onChange = {this.uploadImage.bind(this)}/>
+             <textarea className='crtPst txt-crtPst' name='text'
+             value={this.state.text} onChange={this.onChange.bind(this)}/>
+             <Link  className='crtPst' 
+             onClick = {this.onSubmit.bind(this)} 
+             className="btn btn-primary btn-ctrPst">Submit Post</Link>
+          </div>
+       </div>  
+    </div>
+
+ 
+
+    
     )
   }
 }
+
+
+
+const mapStateToProps = (state) => ({
+ 
+  errors: state.errors
+})
+
+export default connect (mapStateToProps, {createNewpost}) (withRouter(CreatePost));

@@ -1,0 +1,43 @@
+.main-div-createPost {
+  margin-left: 22%;
+  margin-right: 22%;
+  margin-top: 5%;
+ padding: 0px;
+}
+
+.crtPst-wrapper {
+align-items: center;
+padding: 0px;
+}
+
+.headr-crtPsr {
+  padding: 0px;
+  background-color: #E8E8E8;
+}
+
+.title-crtPst{
+  padding: 8px;
+}
+
+.card-createPost {
+  width: 100%;
+}
+
+.crtPst {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.inpt-crtPst {
+  margin-top: 15px;
+}
+
+.txt-crtPst {
+  width: 90%;
+}
+
+.btn-ctrPst {
+  width: 30%;
+  margin: 0 35%;
+  font-weight: 700;
+}
