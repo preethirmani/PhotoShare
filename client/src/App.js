@@ -29,7 +29,7 @@ import CreatePost from './components/Posts/CreatePost';
     if (decoded.exp < currentTime){
      
       store.dispatch(logoutUser());
-      window.location.href = "/login";
+      window.location.href = "/";
     }
   }
 

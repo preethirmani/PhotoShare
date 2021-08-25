@@ -1,12 +1,14 @@
 .main-div-home {
   border: 1px solid;
-  display: flex;
+  
   justify-content: center;
 
 }
 
 .posts-wrapper {
   padding: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-posts {
