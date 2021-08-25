@@ -55,7 +55,7 @@ class CreatePost extends Component {
         text: this.state.text
       };
       console.log('newPost.text::'+newPost.text);
-      this.props.createNewpost(newPost)
+      this.props.createNewpost(newPost, this.props.history)
     
     })
   }
@@ -87,10 +87,7 @@ class CreatePost extends Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => ({
- 
   errors: state.errors
 })
 

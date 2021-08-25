@@ -1,7 +1,10 @@
-import { GET_ALL_POSTS } from "../actions/types";
+import { DELETE_POST, GET_ALL_POSTS, GET_POST } from "../actions/types";
+
+
 const intialState = {
   posts: [],
-  post: {}
+  post: {},
+  loading: false
 }
 
 export default function (state = intialState, action) {
@@ -10,7 +13,20 @@ export default function (state = intialState, action) {
           return {
             ...state,
             posts: action.payload,
+            loading: false
             }
+    case GET_POST:
+          return {
+            ...state,
+            post:action.payload,
+            loading:false
+            }
+
+     case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post._id !== action.payload)
+      };
     default: 
           return state;
     

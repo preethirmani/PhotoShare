@@ -5,23 +5,18 @@
 
 }
 
-.posts-wrapper {
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-}
-
 .card-posts {
-  width: 32rem;
+  width: 550px;
   flex-direction: column;
-  margin: 2px;
+  margin: 2% 20%;
   
 }
 
 .img-posts-home {
   padding: 2px;
-  width: 32rem;
-  height: 36rem;
+  width:  550px;
+  height: 550px;
+  object-fit: cover;
 }
 
 .home-comment {
@@ -33,8 +28,6 @@
   width: 18rem;
   
 }
-
-
 
 
 /** Media Query **/

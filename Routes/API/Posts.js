@@ -13,30 +13,32 @@ const validatePostInput = require('../../validation/posts');
 // @access Private
 router.post('/', passport.authenticate('jwt',{session:false}),
 (req,res) =>{
-  console.log('req::'+req);
+  console.log('Create Post called!');
   // Check Validation
   const {errors, isValid} = validatePostInput(req.body);
     if (!isValid) {
-      // If any errors, send 400 with errors object
-      console.log('Validation failed!!');
+      console.log('Validation failed');
       return res.status(400).json(errors);
     }
 
     Profile.findOne({user: req.user.id})
            .then(profile => {
+            if(profile) {
+                const newPost = new Post({
+                user: req.user.id,
+                name: req.body.name,
+                image: req.body.image,
+                avatar: req.body.avatar,
+                text: req.body.text,
+                handle: (profile)?profile.handle:''
+              });
             
-            const newPost = new Post({
-            user: req.user.id,
-            name: req.body.name,
-            image: req.body.image,
-            avatar: req.body.avatar,
-            text: req.body.text,
-            handle: (profile)?profile.handle:''
-          }); 
-         
-          newPost.save()
-                .then(post => res.json(post))
-                .catch(err => console.log(err))
+              newPost.save()
+                    .then(post => res.json(post))
+                    .catch(err => console.log(err))
+            } else {
+              console.log("Profile not created");
+            }
          })
           .catch(err => console.log(err));
 });
