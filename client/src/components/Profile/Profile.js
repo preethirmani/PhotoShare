@@ -12,20 +12,25 @@ class Profile extends Component {
 
 
   componentDidMount() {
- 
    this.props.getCurrentUserProfile();
    this.props.getUserPosts();
   }
 
+  componentWillReceiveProps(nexProps) {
+
+  }
+
   render() {
     const { isAuthenticated, user }=this.props.auth;
+   const { currentProfile } = this.props.profile;
+  
 
     return(
    <div className="main-div">
      <div className="row-top">
        <div className="img-div">
            <img className="profile-picture" src={user.avatar}/>    
-       </div>
+           </div>
        <div className="details-div" >
          <div className="div1">
           <h4 className="profile-handle">{user.username}</h4>
@@ -36,9 +41,9 @@ class Profile extends Component {
            
          </div>
          <div className="div2">
-           <span className='span-msg span-posts'>12 posts</span>
-           <span className='span-msg span-fllwrs'>68 followers</span>
-           <span className='span-msg span-fllwng'>79 following</span>
+           <span className='span-msg span-posts'>{} posts</span>
+           <span className='span-msg span-fllwrs'> following</span>
+           <span className='span-msg span-fllwng'> followers</span>
            
          </div>
          <p className="div-name">{user.name}</p>
@@ -77,12 +82,14 @@ class Profile extends Component {
 
 Profile.propTypes = {
   auth : PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   getCurrentUserProfile : PropTypes.func.isRequired,
   getUserPosts : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  profile : state.profile
 
 });
 

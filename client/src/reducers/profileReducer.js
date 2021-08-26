@@ -2,8 +2,9 @@ import { GET_CURRENT_PROFILE, CREATE_PROFILE} from "../actions/types";
 
 
 
-const initialState = {
-  profile:null
+const  initialState = {
+  profile : null,
+  currentProfile : null
 }
 
 export default function (state=initialState, action) {
@@ -11,7 +12,7 @@ export default function (state=initialState, action) {
     case GET_CURRENT_PROFILE:
       return {
         ...state,
-        profile: action.payload
+        currentProfile: action.payload
       }
       
     default:

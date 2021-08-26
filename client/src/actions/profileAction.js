@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { GET_ERRORS } from './types';
+import { GET_CURRENT_PROFILE, GET_ERRORS } from './types';
 
 export const getCurrentUserProfile = () => dispatch => {
   console.log('getCurrentUserProfile called');
-  axios.
-  get('/api/profile')
-  .then(res => console.log(res.data))
+  axios
+  .get('/api/profile')
+  .then(res => 
+    dispatch ({
+      type: GET_CURRENT_PROFILE,
+      payload: res.data
+    }))
   .catch(err =>
       dispatch({
         type: GET_ERRORS,
