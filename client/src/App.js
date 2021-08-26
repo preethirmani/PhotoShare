@@ -24,13 +24,22 @@ import CreatePost from './components/Posts/CreatePost';
     setAuthToken(localStorage.jwtToken);
     //Decode Token
     const decoded = jwt_decode(localStorage.jwtToken);
-
+    
+    //Checking for Token Expiry
     const currentTime = Date.now()/1000;
     if (decoded.exp < currentTime){
-     
+     //Token Expired - Logout User
       store.dispatch(logoutUser());
+      //Redirect to Login
       window.location.href = "/";
     }
+
+     //dispatch
+    store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded,
+  });
+
   }
 
 class App extends Component {

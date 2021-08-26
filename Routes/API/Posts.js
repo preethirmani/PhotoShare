@@ -23,22 +23,20 @@ router.post('/', passport.authenticate('jwt',{session:false}),
 
     Profile.findOne({user: req.user.id})
            .then(profile => {
-            if(profile) {
+           
                 const newPost = new Post({
                 user: req.user.id,
                 name: req.body.name,
                 image: req.body.image,
                 avatar: req.body.avatar,
                 text: req.body.text,
-                handle: (profile)?profile.handle:''
+                handle: req.user.username
               });
             
               newPost.save()
                     .then(post => res.json(post))
                     .catch(err => console.log(err))
-            } else {
-              console.log("Profile not created");
-            }
+            
          })
           .catch(err => console.log(err));
 });
