@@ -49,6 +49,7 @@ if(!isValid) {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
+            username: req.body.username,
             avatar
           });
 
@@ -99,6 +100,7 @@ router.post('/login', (req, res) => {
                 const payload = {
                   id: user.id,
                   name: user.name,
+                  username: user.username,
                   avatar: user.avatar
                 };
 

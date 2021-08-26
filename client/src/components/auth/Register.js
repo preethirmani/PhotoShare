@@ -35,6 +35,7 @@ class Register extends Component {
      const newUser = {
        name: this.state.name,
        email: this.state.email,
+       username: this.state.username,
        password:this.state.password,
        password2:this.state.password2
      };
@@ -74,6 +75,18 @@ class Register extends Component {
                   <div className="invalid-feedback">{errors.email}</div>)}
 
               </div>
+
+              
+              <div className= "form-group form-control-register">
+                <input type="text" 
+                className= {classnames('form-control', {'is-invalid': errors.username })} name="username" 
+                value={this.state.username} 
+                onChange={this.onChange.bind(this)}
+                placeholder="Enter username"/>
+                {errors.name && (
+                  <div className="invalid-feedback">{errors.username}</div>)}
+              </div>
+
 
               <div className= "form-group form-control-register">
                 <input type="password" 

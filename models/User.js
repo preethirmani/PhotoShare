@@ -10,6 +10,9 @@ const newUser = new schema({
     type: String,
     required: true
   },
+  username: {
+    type: String
+  },
   password: {
     type: String,
     required: true

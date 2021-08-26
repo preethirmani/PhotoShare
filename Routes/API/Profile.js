@@ -22,7 +22,7 @@ router.post('/', passport.authenticate('jwt', {session:false}),
   }
     const profileFields = {};
     profileFields.user = req.user.id;
-    if(req.body.handle) profileFields.handle = req.body.handle;
+    profileFields.handle = req.user.username;
     if(req.body.gender) profileFields.gender = req.body.gender;
     if(req.body.website) profileFields.website = req.body.website;
     if(req.body.bio) profileFields.bio = req.body.bio;
@@ -45,17 +45,14 @@ router.post('/', passport.authenticate('jwt', {session:false}),
                //Check Handle already exists
                Profile.findOne({handle:req.body.handle})
                       .then(profil => {
-                        if(profil) {
-                          return res.status(400).json({handle:'Handle Already exists!'})
-                        } else {
+                       
                           //create New Profile
                             new Profile(profileFields).save()
                                         .then(savedProfile => res.json(savedProfile))
                                         .catch(err => console.log(err));
-                        }
+                        
                       })
                       .catch(err => console.log(err))
-           
              }
            })
            .catch(err => console.log(err))     

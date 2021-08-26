@@ -7,9 +7,7 @@ const ProfileSchema = new Schema({
     ref:'users'
   },
   handle: {
-    type: String,
-    required:true,
-    max: 40
+    type: String
   },
   
   gender: {

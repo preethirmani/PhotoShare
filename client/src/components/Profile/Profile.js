@@ -6,6 +6,7 @@ import settings from '../../img/settings.png';
 class Profile extends Component {
 
   render() {
+    const { isauthenticated, user }=this.props.auth;
 
     return(
    <div className="main-div">
