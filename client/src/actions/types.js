@@ -7,3 +7,4 @@ export const DELETE_POST = 'DELETE_POST';
 export const POST_LOADING = 'POST_LOADING';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GET_CURRENT_PROFILE = 'GET_CURRENT_PROFILE';
+export const CREATE_PROFILE = 'CREATE_PROFILE';

@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getCurrentUserProfile } from '../../actions/profileAction';
 import '../../css/profile.css';
 import settings from '../../img/settings.png';
 
+
 class Profile extends Component {
+
+  componentDidMount() {
+   // this.props.getCurrentUserProfile(auth);
+  }
 
   render() {
     const { isAuthenticated, user }=this.props.auth;
@@ -31,7 +37,6 @@ class Profile extends Component {
          </div>
          <p className="div-name">{user.name}</p>
             
-
        </div>
      </div>
     
@@ -64,9 +69,14 @@ class Profile extends Component {
 
 }
 
+Profile.propTypes = {
+  auth : PropTypes.object.isRequired,
+  getCurrentUserProfile : PropTypes.func.isRequired
+}
+
 const mapStateToProps = state => ({
   auth: state.auth
 
 });
 
-export default connect (mapStateToProps,{}) (Profile);
+export default connect (mapStateToProps,{getCurrentUserProfile}) (Profile);
