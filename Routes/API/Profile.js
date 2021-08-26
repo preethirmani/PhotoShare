@@ -20,6 +20,7 @@ router.post('/', passport.authenticate('jwt', {session:false}),
   if(!isValid) {
     return res.status(404).json(errors);
   }
+
     const profileFields = {};
     profileFields.user = req.user.id;
     profileFields.handle = req.user.username;
@@ -31,6 +32,7 @@ router.post('/', passport.authenticate('jwt', {session:false}),
                   
     Profile.findOne({user:req.user.id})
            .then(profile => {
+     
              if(profile) {
               //Update Profile
               Profile.findOneAndUpdate(
@@ -43,6 +45,7 @@ router.post('/', passport.authenticate('jwt', {session:false}),
 
              } else {
                //Check Handle already exists
+               
                Profile.findOne({handle:req.body.handle})
                       .then(profil => {
                        
@@ -170,6 +173,7 @@ router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
 //@access Private
 router.get('/', passport.authenticate('jwt', {session:false}), 
 (req, res) => {
+  console.log('req.user.id'+req.user.id);
   Profile.findOne({user: req.user.id})
          .populate('user',['name','avatar'])
          .then(profile => {

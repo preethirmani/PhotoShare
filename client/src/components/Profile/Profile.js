@@ -3,14 +3,18 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentUserProfile } from '../../actions/profileAction';
+import { getUserPosts } from '../../actions/PostActions';
 import '../../css/profile.css';
 import settings from '../../img/settings.png';
 
 
 class Profile extends Component {
 
+
   componentDidMount() {
-   // this.props.getCurrentUserProfile(auth);
+ 
+   this.props.getCurrentUserProfile();
+   this.props.getUserPosts();
   }
 
   render() {
@@ -26,7 +30,9 @@ class Profile extends Component {
          <div className="div1">
           <h4 className="profile-handle">{user.username}</h4>
           <Link className="btn btn-edit-profile" to='/editProfie'>Edit Profile</Link>
+          <Link to='/changePassword'>
           <img src={settings} className="img-settings"/>
+          </Link>
            
          </div>
          <div className="div2">
@@ -71,7 +77,8 @@ class Profile extends Component {
 
 Profile.propTypes = {
   auth : PropTypes.object.isRequired,
-  getCurrentUserProfile : PropTypes.func.isRequired
+  getCurrentUserProfile : PropTypes.func.isRequired,
+  getUserPosts : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -79,4 +86,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect (mapStateToProps,{getCurrentUserProfile}) (Profile);
+export default connect (mapStateToProps,{getCurrentUserProfile , getUserPosts}) (Profile);

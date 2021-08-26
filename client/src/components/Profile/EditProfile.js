@@ -36,7 +36,7 @@ class EditProfile extends Component {
     }
     console.log('newProfile:' + newProfile);
     
-    this.props.createProfile(newProfile);
+    this.props.createProfile(newProfile, this.props.history);
   }
 
   render() {
@@ -46,16 +46,7 @@ class EditProfile extends Component {
       <div>
         <div className='row d-flex justify-content-center main-div-editPrfl'>
           <div className="card editPrfl-wrapper">
-            <div className = "card-header">
-              <ul className = "nav nav-tabs card-header-tabs">
-                <li className = "nav-item">
-                  <Link className = "nav-link active" aria-current="true" to="#">Edit Profile</Link>
-                </li>
-                <li className = "nav-item">
-                  <Link className = "nav-link" to="/changePassword">Change Password</Link>
-                </li>
-              </ul>
-            </div>
+         
             <div className="card-body">
               <form noValidate onSubmit = {this.onSubmit.bind(this)}
               className= "form-edit-prfl">
@@ -66,7 +57,7 @@ class EditProfile extends Component {
 
                 <div className= "form-group form-grp-div">
                   <label  className = "form-label form-label-edit">Email</label>
-                  <input type="email" className= "form-control frm-ctrl-email" name="email"/> 
+                  <input type="email" className= "form-control frm-ctrl-email" value={user.email}/> 
                 </div>
 
                 <div className= "form-group form-grp-div">
@@ -130,4 +121,4 @@ const mapStateToProps = state => ({
   auth : state.auth
 });
 
-export default connect(mapStateToProps,{createProfile})(EditProfile)
+export default connect(mapStateToProps,{createProfile})(withRouter(EditProfile));

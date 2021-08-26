@@ -12,15 +12,12 @@
 }
 
 .editPrfl-wrapper {
- 
     width:40rem;
-  
-   padding: 0px;
+   padding: 10px;
 }
 
-.card-header {
-   width: 100%;
-   border-bottom: 1px solid grey;
+.main-div-editPrfl {
+  margin-top : 10px;
 }
 
 

@@ -68,20 +68,24 @@ router.get('/id/:id', passport.authenticate('jwt',{session: false}),
       .catch(err => console.log(err))
 });
 
-// @route GET api/posts/user_id/:user_id
-// @desc Get posts by post user id
+// @route GET api/posts/currentUser
+// @desc Get posts for current user
 // @access private
-router.get('/user_id/:user_id', passport.authenticate('jwt',{session: false}),
+router.get('/currentUser', passport.authenticate('jwt',{session: false}),
 (req, res) => {
-  Post.find({user:req.params.user_id})
+  console.log('Inside current user::');
+  console.log('Current user user id '+req.user.id)
+  Post.find({user:req.user.id})
       .then(posts => {
         if(!posts) {
+          console.log('No Posts');
           return res.status(404).json({posts:'No Posts found for the user!'});
         } 
-        res.json(posts);
+        return res.json(posts);
       })
       .catch(err => console.log(err))
 });
+
 
 // @route GET api/posts/handle/:handle
 // @desc Get posts by post handle
