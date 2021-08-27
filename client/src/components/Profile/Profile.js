@@ -22,8 +22,10 @@ class Profile extends Component {
 
   render() {
     const { isAuthenticated, user }=this.props.auth;
-   const { currentProfile } = this.props.profile;
-  
+    const { currentProfile } = this.props.profile;
+    const { userPosts } = this.props.posts; 
+    let followers;
+    let following;
 
     return(
    <div className="main-div">
@@ -41,9 +43,9 @@ class Profile extends Component {
            
          </div>
          <div className="div2">
-           <span className='span-msg span-posts'>{} posts</span>
-           <span className='span-msg span-fllwrs'> following</span>
-           <span className='span-msg span-fllwng'> followers</span>
+           <span className='span-msg span-posts'>{userPosts.length} posts</span>
+           <span className='span-msg span-fllwrs'>{} following</span>
+           <span className='span-msg span-fllwng'>{} followers</span>
            
          </div>
          <p className="div-name">{user.name}</p>
@@ -52,25 +54,14 @@ class Profile extends Component {
      </div>
     
     <div className='row-bottom'>
-      
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-
-        <img className='img-gallery' src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTc5fHxwZXJzb258ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
+      {
+        userPosts.map(item => {
+          return (
+            <img className='img-gallery' src={item.image}/>
+          )
+        })
+       
+      }
 
       </div>
   </div>
@@ -83,13 +74,15 @@ class Profile extends Component {
 Profile.propTypes = {
   auth : PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  posts: PropTypes.object.isRequired,
   getCurrentUserProfile : PropTypes.func.isRequired,
   getUserPosts : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile : state.profile
+  profile : state.profile,
+  posts : state.posts
 
 });
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, POST_LOADING } from './types';
+import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING } from './types';
 
 //Create A POst
 export const createNewpost = (userdata, history) => dispatch => {
@@ -53,7 +53,7 @@ export const getUserPosts = () => dispatch => {
   .then(res => {
     console.log(res.data); 
     dispatch ({
-      type: GET_ALL_POSTS,
+      type: GET_USER_POSTS,
       payload: res.data
     })
   })

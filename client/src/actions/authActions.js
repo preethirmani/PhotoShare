@@ -69,3 +69,17 @@ dispatch({
 });
 
 }
+
+//Change Password
+export const changePasword = (passwordData) => dispatch =>{
+ 
+     axios
+     .post('/api/users/changePassword', passwordData)
+          .then(res => window.alert(res.data))
+          .catch(err => 
+            dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          }));
+  
+};

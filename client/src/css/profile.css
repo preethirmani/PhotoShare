@@ -103,9 +103,10 @@ btn-edit-profile:hover {
 }
 
 .img-gallery{
-  width: 30%;
+  width: 32%;
   margin: 10px 5px;
   padding: 5px;
+  object-fit: cover;
 }
 
 h5{
