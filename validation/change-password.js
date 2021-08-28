@@ -6,13 +6,7 @@ const isEmpty = require('./is-empty');
 module.exports = validateChangePasswordInput = data => {
   let errors = {};
 
-if(!Validator.isEmail(data.email)) {
-    errors.email = 'Invalid email!';
-  }
 
-  if(isEmpty(data.email)) {
-    errors.email = 'Email is required!'
-  }
 
   if (!Validator.isLength(data.password, {min: 6, max: 30})){
     errors.password = 'Password must be between 6 and 30 characters';

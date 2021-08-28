@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { connect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { changePasword } from '../../actions/authActions'
 import '../../css/changePassword.css';
 
 class ChangePassword extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       password: '',
       password2: '',
-      oldPassword: ''
+      oldPassword: '',
+      erros: {}
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({errors: nextProps.errors});
+    }
   }
 
   onChange(e) {
@@ -30,33 +37,50 @@ class ChangePassword extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+    
     return (
-      <div class="row d-flex justify-content-center main-div-chgPwd">
-      <div class="card  chgPwd-wrapper">
-      <div class="card-body">
+      <div className= "row d-flex justify-content-center main-div-chgPwd">
+      <div className= "card  chgPwd-wrapper">
+      <div className= "card-body">
        
 
-       <form class="input-form">
+       <form noValidate onSubmit = {this.onSubmit.bind(this)}
+       className= "input-form">
 
-          <div class="form-group form-control-chgPwd">
-            <input type="password" class="form-control" name='password'
+          <div className= "form-group form-control-chgPwd">
+
+          
+
+            <input type="password" 
+            className= 'form-control'
+            name='password' value={this.state.password}
             onChange = {this.onChange.bind(this)}
              id="password" placeholder="Password"/>
+             
+             
+
           </div>
 
-          <div class="form-group form-control-chgPwd">
-            <input type="password" class="form-control" 
+          <div className= "form-group form-control-chgPwd">
+            <input type="password" name="password2" 
+             value={this.state.password2}
+            className='form-control'
             onChange = {this.onChange.bind(this)}
-            name="password2" placeholder="Confirm Password"/>
+            placeholder="Confirm Password"/>
+           
           </div>
 
-          <div class="form-group form-control-chgPwd">
-            <input type="password" class="form-control"
+          <div className= "form-group form-control-chgPwd">
+            <input type="password" value={this.state.oldPassword}
+            className='form-control'
             onChange = {this.onChange.bind(this)}
-             name="oldPassword" placeholder="Temporary Password"/>
+             name="oldPassword" placeholder="Old Password"/>
+           
+
           </div>
 
-          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <button type="submit" className= "btn btn-primary">Sign Up</button>
 
         </form>
 
@@ -68,7 +92,14 @@ class ChangePassword extends Component {
 }
 
 ChangePassword.propTypes = {
-  changePasword : PropTypes.func.isRequired
+  changePasword : PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-export default connect (null, {changePasword}) (ChangePassword);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect (mapStateToProps, {changePasword}) (ChangePassword);
