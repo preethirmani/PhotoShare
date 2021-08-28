@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_CURRENT_PROFILE, GET_ERRORS } from './types';
 
+//Get CurrentUser Profile
 export const getCurrentUserProfile = () => dispatch => {
   console.log('getCurrentUserProfile called');
   axios
@@ -17,6 +18,7 @@ export const getCurrentUserProfile = () => dispatch => {
       }));
 }
 
+//Create Profile
 export const createProfile = (profileData, history) => dispatch => {
   
   axios.
@@ -28,3 +30,4 @@ export const createProfile = (profileData, history) => dispatch => {
       payload: err.response.data
     }));
 }
+

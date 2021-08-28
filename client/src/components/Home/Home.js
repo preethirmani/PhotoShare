@@ -4,13 +4,16 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-import { getAllPosts,likePost,unlikePost,deletePost } from '../../actions/PostActions';
+import { getAllPosts,likePost,unlikePost,deletePost,getSuggestions } from '../../actions/PostActions';
+import spinner from '../common/Spinner';
+
 import "../../css/home.css";
 
 class Home extends Component {
 
   componentDidMount() {
     this.props.getAllPosts();
+    this.props.getSuggestions();
   }
 
    onDeleteClick(id) {
@@ -36,15 +39,19 @@ class Home extends Component {
 
   render() {
 
-    const  postsArr  = this.props.posts.posts;
-    console.log('POsts in home.js::' + this.props.posts.posts);
-    console.log('postsARR' + postsArr);
+    const  postsList  = this.props.posts.posts;
     const { auth } = this.props;
-
-    return (
-      <div className='main-div-home'>
+    const { suggestions, loading } = this.props.posts;
+    let homeContent;
+    
+    if(suggestions == null || postsList == null || loading) {
+        homeContent = <spinner />
+    } else {
+      console.log('Suggestions length::'+suggestions.length);
+      homeContent = 
+        <div className='main-div-home'>
           {
-            postsArr.map(item => {
+            postsList.map(item => {
               return( 
                   <div className= "card card-posts">
                     <h6 className= "card-title ">{item.handle}</h6>
@@ -94,15 +101,12 @@ class Home extends Component {
               )
             })
           }
-        <div className = "div-suggestions">
-          <div className= "card-body">
-            <h6 className= "card-title">Suggestions for you</h6>
-          <a href="#" className= "btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-
-      </div>
-
+    </div>
+    }
+    
+    //console.log('suggestions.length'+ suggestions.length);
+    return (
+      <div>{homeContent}</div>
       
     )
   }
@@ -111,15 +115,20 @@ class Home extends Component {
 Home.prototypes = {
   getAllPosts : PropTypes.func.isRequired,
   deletePost : PropTypes.func.isRequired,
-  likePost: PropTypes.func.isRequired,
-  unlikePost: PropTypes.func.isRequired,
-  posts: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  likePost : PropTypes.func.isRequired,
+  unlikePost : PropTypes.func.isRequired,
+  getSuggestions : PropTypes.func.isRequired,
+  posts : PropTypes.object.isRequired,
+  suggestions : PropTypes.object.isRequired,
+  auth : PropTypes.object.isRequired
+  
 };
 
 const mapStateToProps = state => ({
-      posts: state.posts,
-      auth: state.auth
+      posts : state.posts,
+      auth : state.auth,
+      suggestions : state.posts.suggestions
+      
 });
 
-export default connect(mapStateToProps, {getAllPosts,deletePost,likePost,unlikePost}) (withRouter(Home));
+export default connect(mapStateToProps, {getAllPosts,deletePost,likePost,unlikePost, getSuggestions}) (withRouter(Home));

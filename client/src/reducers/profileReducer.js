@@ -1,4 +1,4 @@
-import { GET_CURRENT_PROFILE, CREATE_PROFILE} from "../actions/types";
+import { GET_CURRENT_PROFILE} from "../actions/types";
 
 
 
@@ -14,7 +14,7 @@ export default function (state=initialState, action) {
         ...state,
         currentProfile: action.payload
       }
-      
+    
     default:
       return state;
   }

@@ -229,7 +229,7 @@ router.get('/handle/:handle', passport.authenticate('jwt', {session:false}),
 
 router.get('/suggestions', passport.authenticate('jwt', {session:false}), 
 (req, res) => {
-  console.log('user from authentication:'+req.user.name);
+  
   Profile.findOne({user:req.user.id})
         .then(profile => {
           if(!profile) {

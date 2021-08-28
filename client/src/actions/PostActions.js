@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING } from './types';
+import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING, GET_SUGGESTIONS } from './types';
 
 //Create A POst
 export const createNewpost = (userdata, history) => dispatch => {
@@ -144,6 +144,23 @@ export const deleteComment = (postId, commentId) => dispatch => {
     );
 };
 
+//Get Suggestions
+export const getSuggestions = () => dispatch => {
+  dispatch(setPostLoading());
+  console.log('getSuggestions called');
+  axios.
+  get('/api/profile/suggestions')
+  .then(res => 
+    dispatch({
+      type: GET_SUGGESTIONS,
+      payload: res.data
+    }))
+  .catch(err => 
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+}
 
 // Set loading state
 export const setPostLoading = () => {

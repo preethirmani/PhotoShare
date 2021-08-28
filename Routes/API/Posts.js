@@ -137,6 +137,8 @@ router.delete('/delete/:id', passport.authenticate('jwt', {session:false}),
 // @access private
 router.post('/like/:id', passport.authenticate('jwt',{session: false}),
 (req, res) => {
+  console.log('like post called!');
+  console.log('Postid::'+req.params.id)
   Profile.findOne({user: req.user.id}) 
          .then(profile => {
            Post.findById(req.params.id)
