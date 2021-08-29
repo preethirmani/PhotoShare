@@ -1,14 +1,13 @@
-.main-div-home {
-  border: 1px solid;
-  
-  justify-content: center;
-
+.home-main-div {
+  padding: 65px;
 }
 
 .card-posts {
   width: 550px;
   flex-direction: column;
-  margin: 2% 20%;
+  margin-top: 1%;
+  margin-left:20px;
+  
   
 }
 
@@ -24,15 +23,61 @@
 }
 
 .div-suggestions {
-  display: inline;
+  
   width: 18rem;
   
 }
 
+.suggestions-card {
+  margin-top: 1%;
+  width: 19rem;
 
+  border: 1px solid blue;
+}
+.suggestion-title {
+  font-weight: 700;
+  padding: 4px;
+  margin-bottom: 12px;
+  display: inline;
+}
+
+.suggestion-title-All{
+  font-weight: 700;
+  color: black;
+  display: inline;
+  padding: 5px;
+
+
+  
+}
+.suggestion-handle {
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 12px;
+  padding: 5px ;
+}
+
+.suggestion-image {
+  width: 25px;
+  margin-bottom: 12px;
+}
+
+.suggestion-link {
+  text-decoration: none;
+  color:black;
+}
+
+.span-sggn-follow {
+  padding: 2px;
+  font-weight: 700;
+  font-size: 13px;
+  float: right;
+}
 /** Media Query **/
 @media (max-width: 600px) {
-  .div-suggestions {
+  .suggestions-card {
     display:none;
   }
 }

@@ -31,3 +31,31 @@ export const createProfile = (profileData, history) => dispatch => {
     }));
 }
 
+
+//Follow User
+export const followUser = (userId) => dispatch => {
+  
+  axios.
+  get(`/api/profile/follow/${userId}`)
+  .then(res => console.log(res.data))
+  .catch(err => 
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+}
+
+
+//Follow User
+export const unfollowUser = (userId) => dispatch => {
+  
+  axios.
+  get(`/api/profile/unFollow/${userId}`)
+  .then(res => console.log(res.data))
+  .catch(err => 
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+}
+

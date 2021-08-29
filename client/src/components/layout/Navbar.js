@@ -22,7 +22,7 @@ class Navbar extends Component {
 
     return (
       
-    <nav className= "navbar navbar-expand-lg navbar-light">
+    <nav className= "navbar navbar-expand-lg fixed-top navbar-light">
       <div className= "container">
         <h3 className= " brand-name" to="#">PhotoShare</h3>
         <button className= "navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
