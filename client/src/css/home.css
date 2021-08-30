@@ -31,6 +31,7 @@
 .suggestions-card {
   margin-top: 1%;
   width: 20rem;
+  border:none;
  
 }
 .suggestions-header {
@@ -83,6 +84,7 @@ margin-bottom: 15px;
 
 .profile-card {
   width: 20rem;
+  border: none;
 }
 .avatar-user {
   width: 55px;
