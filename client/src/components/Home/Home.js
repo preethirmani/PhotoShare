@@ -63,8 +63,6 @@ Home.prototypes = {
 
 const mapStateToProps = state => ({
       posts : state.posts
-     
-      
 });
 
 export default connect(mapStateToProps, {getAllPosts, getSuggestions}) (withRouter(Home));

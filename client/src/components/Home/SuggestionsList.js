@@ -6,31 +6,38 @@ import SuggestionContent from './SuggestionContent';
 
 class SuggestionsList extends Component {
   render() {
-    const { suggestions } = this.props;
-    console.log('Suggestions'+suggestions);
-    
+    const { suggestions, auth } = this.props;
+  
    
     return (
       <div>
-         <div className ='card suggestions-card' >
-           <div className='card-body'>
-             <h6 className='card-subtitle suggestion-title mb-2 text-muted'>Suggestions For You</h6>
-             <Link>
-              <h6 className='card-subtitle mb-2 suggestion-title-All text-muted'>See All</h6>
-             </Link>
-             
-              <SuggestionContent suggestions={suggestions}/>
-           </div>
-          
+          <div className ='card profile-card'> 
+            <div className='card-body profile-card'>
+              <img className='rounded-circle avatar-user' src={auth.user.avatar}/>
+              <span className='user-handle'>{auth.user.username}</span>
+            </div>
+          </div>
+          <div className ='card suggestions-card' >
+            <div className='card-body'>
+              <div className='suggestions-header'> 
+                  <h6 className='card-subtitle suggestion-title mb-2 text-muted'>Suggestions For You</h6>
+                  <Link to ='/suggestions'>
+                    <span className='card-subtitle mb-2 suggestion-title-All text-muted'>See All</span>
+                  </Link>
+                </div>
+                <SuggestionContent suggestions={suggestions}/>
+              </div>          
+            </div>
         </div>
-        
-        
-      </div>
     )
   }
 }
 SuggestionsList.propTypes = {
   suggestions : PropTypes.array.isRequired
+  
 };
 
-export default  SuggestionsList;
+const mapStateToProps = state => ({
+  auth : state.auth
+});
+export default connect (mapStateToProps,{}) (SuggestionsList);

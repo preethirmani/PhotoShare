@@ -30,10 +30,13 @@
 
 .suggestions-card {
   margin-top: 1%;
-  width: 19rem;
-
-  border: 1px solid blue;
+  width: 20rem;
+ 
 }
+.suggestions-header {
+margin-bottom: 15px;
+}
+
 .suggestion-title {
   font-weight: 700;
   padding: 4px;
@@ -42,12 +45,13 @@
 }
 
 .suggestion-title-All{
-  font-weight: 700;
-  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  color: #000000 !important;
   display: inline;
   padding: 5px;
-
-
+  float: right;
   
 }
 .suggestion-handle {
@@ -55,13 +59,14 @@
   font-size: 14px;
   margin-top: 10px;
   margin-bottom: 5px;
-  margin-left: 12px;
+  
   padding: 5px ;
 }
 
 .suggestion-image {
   width: 25px;
   margin-bottom: 12px;
+  margin-right: 8px;
 }
 
 .suggestion-link {
@@ -74,6 +79,20 @@
   font-weight: 700;
   font-size: 13px;
   float: right;
+}
+
+.profile-card {
+  width: 20rem;
+}
+.avatar-user {
+  width: 55px;
+  padding: 2px;
+  margin-right: 20px;
+}
+
+.user-handle {
+  font-weight: 700;
+  font-size: 15px;
 }
 /** Media Query **/
 @media (max-width: 600px) {
