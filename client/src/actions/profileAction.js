@@ -31,6 +31,22 @@ export const createProfile = (profileData, history) => dispatch => {
     }));
 }
 
+//Get Profile By Handle
+export const getProfileByHandle = (handle) => dispatch => {
+  console.log('getCurrentUserProfile called');
+  axios
+  .get(` /api/profile/handle/:${handle}`)
+  .then(res => 
+    dispatch ({
+      type: GET_PROFILE_HANDLE,
+      payload: res.data
+    }))
+  .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+}
 
 //Follow User
 export const followUser = (userId) => dispatch => {
@@ -46,7 +62,7 @@ export const followUser = (userId) => dispatch => {
 }
 
 
-//Follow User
+//UnFollow User
 export const unfollowUser = (userId) => dispatch => {
   
   axios.

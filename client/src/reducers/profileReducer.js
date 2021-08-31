@@ -4,7 +4,8 @@ import { GET_CURRENT_PROFILE} from "../actions/types";
 
 const  initialState = {
   profile : null,
-  currentProfile : null
+  currentProfile : null,
+  loading: false,
 }
 
 export default function (state=initialState, action) {
@@ -12,8 +13,17 @@ export default function (state=initialState, action) {
     case GET_CURRENT_PROFILE:
       return {
         ...state,
-        currentProfile: action.payload
+        currentProfile: action.payload,
+        loading: false
       }
+
+      case GET_PROFILE_HANDLE:
+        return {
+          ...state,
+          profile : action.payload,
+          loading : false
+          
+        }
     
     default:
       return state;

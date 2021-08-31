@@ -7,8 +7,6 @@
   flex-direction: column;
   margin-top: 1%;
   margin-left:20px;
-  
-  
 }
 
 .img-posts-home {
@@ -18,21 +16,34 @@
   object-fit: cover;
 }
 
+.div-likes-text {
+  font-size: 15px;
+  margin: 10px 0px;
+}
+.post-handle
+{
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 10px 0px;
+}
+.post-text {
+  font-size: 14px;
+  margin: 10px 0px;
+}
 .home-comment {
   width: 30rem;
 }
 
 .div-suggestions {
-  
   width: 18rem;
-  
 }
 
 .suggestions-card {
   margin-top: 1%;
   width: 20rem;
   border:none;
- 
 }
 .suggestions-header {
 margin-bottom: 15px;

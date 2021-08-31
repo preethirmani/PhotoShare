@@ -18,6 +18,7 @@ import { SET_CURRENT_USER } from './actions/types';
 import { logoutUser } from './actions/authActions';
 import CreatePost from './components/Posts/CreatePost';
 import Suggestions from './components/Home/Suggestions';
+import ProfileByHandle from './components/Profile/ProfileByHandle';
 
 
   if(localStorage.jwtToken){
@@ -62,6 +63,7 @@ class App extends Component {
             <Route exact path='/createPost' component={Navbar} />
             <Route exact path='/createPost' component={CreatePost}/>
             <Route exact path='/suggestions' component={Suggestions}/>
+            <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>
           </Router>
         </Provider>

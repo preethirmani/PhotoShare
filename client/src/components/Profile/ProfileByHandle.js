@@ -1,8 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export default class ProfileByHandle extends Component {
+
+   componentDidMount() {
+   this.props.getCurrentUserProfile();
+   this.props.getUserPosts();
+  }
+
+
   render() {
-        const { user }=this.props.auth;
+    const { user }=this.props.auth;
     const { userPosts } = this.props.posts; 
    
 
