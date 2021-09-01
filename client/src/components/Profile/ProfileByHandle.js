@@ -11,27 +11,46 @@ class ProfileByHandle extends Component {
 
 
    componentDidMount() {
-     console.log('this.props.match.params.handle'+this.props.match.params.handle);
+     
    this.props.getProfileByHandle(this.props.match.params.handle);
    this.props.getPostsbyHandle(this.props.match.params.handle);
+   
   }
 
+    componentWillReceiveProps(nextProps) {
+     
+     const { profile } = nextProps.profile;
+     const { user } = this.props.auth;
 
+     //checking current user is a follower
+   
+     console.log('Inside nextprops');
+     if (profile !== null) {
+       
+      let followersList = profile.followers.map(follower => follower.user);
+       console.log(followersList.includes(user.id));  
+       
+    
+     }
+      //q1   console.log('Inside nextprops.profile'+ nextProps.profile.profile.handle);
+      //console.log('profile.handle in nextprops'+nextProps.profile.profile.handle);
+  
+  }
   render() {
+    console.log('Inside render');
     const { profile }=this.props.profile;
     const { postsHandle } = this.props.posts; 
-    //let followers = profile.followers.length;
     let loadingProfile = this.props.profile.loading;
     let loadingPost = this.props.posts.loading;
     let profilecontent;
 
     if (loadingPost|| loadingProfile || profile === null || postsHandle === null) {
       
-        profilecontent = <Spinner />
+    profilecontent = <Spinner />
 
     } else {
 
-      profilecontent = <div className="main-div">
+    profilecontent = <div className="main-div">
      <div className="row-top">
        <div className="img-div">
            <img className="profile-picture" src={profile.user.avatar}/>    
@@ -62,10 +81,7 @@ class ProfileByHandle extends Component {
       </div>
   </div>
 
-
-    }
-  
-   
+}
 
     return(
               <div>{profilecontent}</div>
