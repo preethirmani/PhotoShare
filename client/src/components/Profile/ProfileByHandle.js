@@ -1,53 +1,59 @@
 import React, { Component } from 'react';
-import React, {Component} from 'react';
+
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getProfileByHandle } from '../../actions/profileAction';
+import { getPostsbyHandle } from '../../actions/PostActions';
+import Spinner from '../common/Spinner';
 
-export default class ProfileByHandle extends Component {
+class ProfileByHandle extends Component {
+
 
    componentDidMount() {
-   this.props.getCurrentUserProfile();
-   this.props.getUserPosts();
+     console.log('this.props.match.params.handle'+this.props.match.params.handle);
+   this.props.getProfileByHandle(this.props.match.params.handle);
+   this.props.getPostsbyHandle(this.props.match.params.handle);
   }
 
 
   render() {
-    const { user }=this.props.auth;
-    const { userPosts } = this.props.posts; 
-   
+    const { profile }=this.props.profile;
+    const { postsHandle } = this.props.posts; 
+    //let followers = profile.followers.length;
+    let loadingProfile = this.props.profile.loading;
+    let loadingPost = this.props.posts.loading;
+    let profilecontent;
 
-    return(
-   <div className="main-div">
+    if (loadingPost|| loadingProfile || profile === null || postsHandle === null) {
+      
+        profilecontent = <Spinner />
+
+    } else {
+
+      profilecontent = <div className="main-div">
      <div className="row-top">
        <div className="img-div">
-           <img className="profile-picture" src={user.avatar}/>    
+           <img className="profile-picture" src={profile.user.avatar}/>    
            </div>
        <div className="details-div" >
          <div className="div1">
-          <h4 className="profile-handle">{user.username}</h4>
-          <Link className="btn btn-edit-profile" to='/editProfie'>Edit Profile</Link>
-          <Link to='/changePassword'>
-          <img src={settings} className="img-settings"/>
-          </Link>
-           
+          <h4 className="profile-handle">{profile.handle}</h4>
          </div>
          <div className="div2">
-           <span className='span-msg span-posts'>{userPosts.length} posts</span>
-           <span className='span-msg span-fllwrs'>{} following</span>
-           <span className='span-msg span-fllwng'>{} followers</span>
-           
+           <span className='span-msg span-posts'>{postsHandle.length} posts</span>
+           <span className='span-msg span-fllwrs'>{profile.following.length} following</span>
+           <span className='span-msg span-fllwng'>{profile.followers.length} followers</span>
          </div>
-         <p className="div-name">{user.name}</p>
-            
+         <p className="div-name">{profile.user.name}</p>   
        </div>
      </div>
     
     <div className='row-bottom'>
       {
-        userPosts.map(item => {
+        postsHandle.map(item => {
           return (
-            <img className='img-gallery' src={item.image}/>
+            <img className='img-gallery' key={item._id} src={item.image}/>
           )
         })
        
@@ -56,6 +62,30 @@ export default class ProfileByHandle extends Component {
       </div>
   </div>
 
+
+    }
+  
+   
+
+    return(
+              <div>{profilecontent}</div>
     );
   }
 }
+
+ProfileByHandle.propTypes = {
+  getProfileByHandle : PropTypes.func.isRequired,
+  getPostsbyHandle : PropTypes.func.isRequired,
+  auth : PropTypes.object.isRequired,
+  profile : PropTypes.object.isRequired,
+  posts: PropTypes.object.isRequired,
+
+};
+
+const mapStateToProps = state => ({
+  auth : state.auth,
+  profile : state.profile,
+  posts : state.posts
+});
+
+export default connect (mapStateToProps, {getProfileByHandle, getPostsbyHandle}) (ProfileByHandle);

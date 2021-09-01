@@ -25,7 +25,6 @@ export const loginUser = (userData) => dispatch => {
     .post('/api/users/login', userData)
     .then(res => {
 
-     console.log(res.data);
      const {token} = res.data;
      
      //save token to localstorage

@@ -1,4 +1,5 @@
-import { GET_CURRENT_PROFILE} from "../actions/types";
+
+import { GET_CURRENT_PROFILE, GET_PROFILE_HANDLE} from "../actions/types";
 
 
 

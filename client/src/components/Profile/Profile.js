@@ -71,14 +71,14 @@ class Profile extends Component {
 
 Profile.propTypes = {
   auth : PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  posts: PropTypes.object.isRequired,
+  profile : PropTypes.object.isRequired,
+  posts : PropTypes.object.isRequired,
   getCurrentUserProfile : PropTypes.func.isRequired,
   getUserPosts : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth : state.auth,
   profile : state.profile,
   posts : state.posts
 

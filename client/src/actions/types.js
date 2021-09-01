@@ -3,6 +3,7 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const GET_ERRORS = 'GET_ERRORS';
 export const NEW_POST = 'NEW_POST';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
+export const GET_POSTS_HANDLE = 'GET_POSTS_HANDLE';
 export const GET_USER_POSTS = 'GET_USER_POSTS';
 export const GET_POST = 'GET_POST';
 export const DELETE_POST = 'DELETE_POST';

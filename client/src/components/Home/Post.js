@@ -87,7 +87,7 @@ class Post extends Component {
                            <div>
                           Liked by &nbsp;
                           <Link className='post-handle' 
-                          to={`/profilehanlde/${post.handle}`}>{likedby}</Link> and others
+                          to={`/profilehanlde/${likedby}`}>{likedby}</Link> and others
                           </div> }
                         
                       </div>

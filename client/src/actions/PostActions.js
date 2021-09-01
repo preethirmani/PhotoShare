@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING, GET_SUGGESTIONS } from './types';
+import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING, GET_SUGGESTIONS, GET_POSTS_HANDLE } from './types';
 
 //Create A POst
 export const createNewpost = (userdata, history) => dispatch => {
@@ -49,11 +49,30 @@ export const getUserPosts = () => dispatch => {
   dispatch(setPostLoading());
   console.log('getUserPosts called');
   axios
-  .get('api/posts/currentUser')
+  .get('/api/posts/currentUser')
   .then(res => {
     console.log(res.data); 
     dispatch ({
       type: GET_USER_POSTS,
+      payload: res.data
+    })
+  })
+  .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+}
+
+//Get Posts by handle
+export const getPostsbyHandle = (handle) => dispatch => {
+  dispatch(setPostLoading());
+  axios
+  .get(`/api/posts/handle/${handle}`)
+  .then(res => {
+    console.log(res.data); 
+    dispatch ({
+      type: GET_POSTS_HANDLE,
       payload: res.data
     })
   })

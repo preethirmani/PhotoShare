@@ -209,6 +209,7 @@ router.get('/id/:id', passport.authenticate('jwt', {session:false}),
 
 router.get('/handle/:handle', passport.authenticate('jwt', {session:false}),
 (req, res) => {
+ 
   Profile.findOne({handle:req.params.handle})
           .populate('user', ['name','email','avatar'])
           .then(profile => {
