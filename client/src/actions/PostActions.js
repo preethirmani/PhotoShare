@@ -166,7 +166,6 @@ export const deleteComment = (postId, commentId) => dispatch => {
 //Get Suggestions
 export const getSuggestions = () => dispatch => {
   dispatch(setPostLoading());
-  console.log('getSuggestions called');
   axios.
   get('/api/profile/suggestions')
   .then(res => 

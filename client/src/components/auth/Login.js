@@ -77,7 +77,7 @@ class Login extends Component {
                   )}
 								</div>
 
-                <button type="submit" className="btn  btn-primary " id="btnSubmit">Login</button>
+                <button type="submit" className="btn  btn-primary ">Login</button>
               </form>
               <div className="sign-up-wrapper">
 							<p>Don't have an account?

@@ -127,7 +127,7 @@ router.get('/follow/:user_id', passport.authenticate('jwt',{session:false}),
 
 router.get('/unFollow/:user_id', passport.authenticate('jwt',{session:false}),
 (req, res) => {
- 
+  
   Profile.findOne({user: req.user.id}) 
         .then(profile => {
           if(profile) {

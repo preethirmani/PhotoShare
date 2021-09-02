@@ -35,8 +35,9 @@ class Suggestion extends Component {
                 src={suggestion.user.avatar}
                 alt='avatar'
               />
-            
+          <Link className='link-sggn-handle' to={`/profilehanlde/${suggestion.handle}`}>
             <span className='suggestion-handle'>{suggestion.handle}</span>
+          </Link> 
           </Link>
           <span className='span-sggn-follow'>
             {!this.state.follow && (

@@ -38,8 +38,7 @@ class Profile extends Component {
           <Link to='/changePassword'>
           <img src={settings} className="img-settings"/>
           </Link>
-           
-         </div>
+        </div>
          <div className="div2">
            <span className='span-msg span-posts'>{userPosts.length} posts</span>
            <span className='span-msg span-fllwrs'>{} following</span>

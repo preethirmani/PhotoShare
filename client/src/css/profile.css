@@ -3,15 +3,13 @@
   margin: auto;
   display: flex;
   flex-flow: column;
+  padding: 60px;
 }
 .row-top {
   display: flex;
   flex-flow: row;
   flex-direction: row;
   margin-left:20%;
- 
-  
- 
   
 }
 .row-bottom {
@@ -56,6 +54,22 @@
 
 .profile-handle {
   display: inline;
+}
+
+.btn-follow-user {
+
+  width : 100px;
+  border-radius: 4px;
+  border : 0.25px solid;
+  background-color:  #0095f6;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-left: 20px;
+  text-align: center;
+
+ 
+
 }
 
 .btn-edit-profile{

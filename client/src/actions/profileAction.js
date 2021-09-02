@@ -49,11 +49,11 @@ export const getProfileByHandle = (handle) => dispatch => {
 }
 
 //Follow User
-export const followUser = (userId) => dispatch => {
-  
+export const followUser = (userId, handle) => dispatch => {
+ // console.log('Follow user Clicked and user_id' + userId);
   axios.
   get(`/api/profile/follow/${userId}`)
-  .then(res => console.log(res.data))
+  .then(res => dispatch(getProfileByHandle(handle)))
   .catch(err => 
     dispatch({
       type: GET_ERRORS,
@@ -63,11 +63,11 @@ export const followUser = (userId) => dispatch => {
 
 
 //UnFollow User
-export const unfollowUser = (userId) => dispatch => {
-  
+export const unfollowUser = (userId, handle) => dispatch => {
+  console.log('UnFollow user Clicked and user_id' + userId);
   axios.
   get(`/api/profile/unFollow/${userId}`)
-  .then(res => console.log(res.data))
+  .then(res => dispatch(getProfileByHandle(handle)))
   .catch(err => 
     dispatch({
       type: GET_ERRORS,
