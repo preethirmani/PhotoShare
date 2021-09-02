@@ -39,7 +39,18 @@ class Post extends Component {
     return (
       
                   <div className= "card card-posts">
-                    <h6 className= "card-title ">{post.handle}</h6>
+                    <div className="post-title">
+                    <Link to={`/profilehanlde/${post.handle}`}>
+                      <img
+                      className='rounded-circle post-title-image'
+                      src={auth.user.avatar}
+                      alt='avatar'/>
+                    </Link>
+
+                    <Link className='post-title-Link' to={`/profilehanlde/${post.handle}`}>
+                      <h6 className= "card-title post-title ">{post.handle}</h6>
+                    </Link>
+                     </div>
                     <img className= "card-img-top img-posts-home" src={post.image} alt="Card image cap"/>
                     
                       <div className= "card-body">

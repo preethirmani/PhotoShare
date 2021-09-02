@@ -57,12 +57,14 @@ class App extends Component {
             <Route exact path='/changePassword' component={ChangePassword} />
             <Route exact path='/profile' component={Navbar} />
             <Route exact path='/profile' component={Profile} />
+             <Route exact path='/editProfie' component={Navbar} />
             <Route exact path='/editProfie' component={EditProfile}/>
             <Route exact path='/home' component={Navbar} />
             <Route exact path='/home' component={Home}/>
             <Route exact path='/createPost' component={Navbar} />
             <Route exact path='/createPost' component={CreatePost}/>
             <Route exact path='/suggestions' component={Suggestions}/>
+              <Route exact path='/profilehanlde/:handle' component={Navbar} />
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>
           </Router>

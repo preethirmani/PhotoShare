@@ -9,6 +9,29 @@
   margin-left:20px;
 }
 
+.post-title {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+.post-title {
+  margin-left: 10px;
+  text-decoration: none;
+  text-align: left;
+  color:black;
+  font-family: "Open Sans", Arial, sans-serif !important;
+  font-size: 13px;
+}
+.post-title-Link {
+   text-decoration: none;
+}
+.post-title-image {
+  display: inline;
+  width: 30px;
+margin-left: 10px;
+}
+
 .img-posts-home {
   padding: 2px;
   width:  550px;
