@@ -72,8 +72,9 @@ class App extends Component {
               <Route exact path='/profilehanlde/:handle' component={Navbar} />
              <Route exact path='/following/:id' component={Navbar} />
             <Route exact path='/following/:id' component={Following}/>
+
              <Route exact path='/followers/:id' component={Navbar} />
-            <Route exact path='/followers/:id' component={Following}/>
+            <Route exact path='/followers/:id' component={Followers}/>
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>
           </Router>

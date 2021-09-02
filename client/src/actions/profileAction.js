@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE } from './types';
+import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE, PROFILE_LOADING} from './types';
 
 //Get CurrentUser Profile
 export const getCurrentUserProfile = () => dispatch => {
-  console.log('getCurrentUserProfile called');
+  
+  dispatch(setProfileLoading());
   axios
   .get('/api/profile')
   .then(res => 
@@ -33,7 +34,7 @@ export const createProfile = (profileData, history) => dispatch => {
 
 //Get Profile By Handle
 export const getProfileByHandle = (handle) => dispatch => {
- 
+ dispatch(setProfileLoading());
   axios
   .get(`/api/profile/handle/${handle}`)
   .then(res => 
@@ -77,7 +78,7 @@ export const unfollowUser = (userId, handle) => dispatch => {
 
 //Get List of Following
 export const getfollowingList = (id) => dispatch => {
- console.log('getfollowingList id'+id);
+  dispatch(clearCurrentProfile());
   axios.
   get(`/api/profile/following/${id}`)
   .then(res => 
@@ -94,7 +95,7 @@ export const getfollowingList = (id) => dispatch => {
 
 //Get List of Followers
 export const getfollowersList = (id) => dispatch => {
- 
+ dispatch(clearCurrentProfile());
   axios.
   get(`/api/profile/followers/${id}`)
   .then(res => 
@@ -109,3 +110,38 @@ export const getfollowersList = (id) => dispatch => {
     }));
 
   }
+
+
+// Delete account & profile
+export const deleteAccount = () => dispatch => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    axios
+      .delete('/api/profile')
+      .then(res =>
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
+};
+
+  // Profile loading
+export const setProfileLoading = () => {
+  return {
+    type: PROFILE_LOADING
+  };
+};
+
+// Clear profile
+export const clearCurrentProfile = () => {
+  return {
+    type: CLEAR_CURRENT_PROFILE
+  };
+};
