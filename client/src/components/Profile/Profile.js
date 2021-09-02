@@ -45,12 +45,14 @@ class Profile extends Component {
         </div>
          <div className="div2">
            <span className='span-msg span-posts'>{userPosts.length} posts</span>
-           <Link className='follow-Link' to={'/following'}>
+           <Link className='follow-Link'
+            to={`/following/${currentProfile.user._id}`}>
               <span className='span-msg span-fllwrs'>
              {currentProfile.following.length} following
              </span>
            </Link>
-           <Link className='follow-Link'>
+           <Link className='follow-Link' 
+           to={`/followers/${currentProfile.user._id}`}>
                <span className='span-msg span-fllwng'>
              {currentProfile.followers.length} followers
              </span>

@@ -88,8 +88,18 @@ class ProfileByHandle extends Component {
         </div>
          <div className="div2">
            <span className='span-msg span-posts'>{postsHandle.length} posts</span>
-           <span className='span-msg span-fllwrs'>{profile.following.length} following</span>
-           <span className='span-msg span-fllwng'>{profile.followers.length} followers</span>
+           <Link className='follow-Link' 
+           to={`/following/${profile.user._id}`}>
+              <span className='span-msg span-fllwrs'>
+                {profile.following.length} following
+              </span>
+           </Link>
+            <Link className='follow-Link' 
+            to={`/followers/${profile.user._id}`}>
+              <span className='span-msg span-fllwng'>
+                {profile.followers.length} followers
+              </span>
+            </Link>
          </div>
          <p className="div-name">{profile.user.name}</p>   
        </div>

@@ -257,12 +257,12 @@ router.get('/suggestions', passport.authenticate('jwt', {session:false}),
 });
 
 
-//@route  GET  /api/profile/followers
+//@route  GET  /api/profile/followers/:id
 //@desc   Get list of followers
 //@access Private
-router.get('/followers', passport.authenticate('jwt', {session:false}),
+router.get('/followers/:id', passport.authenticate('jwt', {session:false}),
 (req, res) => {
-  Profile.findOne({user: req.user.id})
+  Profile.findOne({user: req.params.id})
          .then(profile => {
            if(!profile) {
             return res.status(400).json({profile:'Profile does not exist!'})
@@ -273,12 +273,13 @@ router.get('/followers', passport.authenticate('jwt', {session:false}),
          .catch(err => console.log(err))
 })
 
-//@route  GET  /api/profile/following
+//@route  GET  /api/profile/following/:id
 //@desc   Get list of following users info
 //@access Private
-router.get('/following', passport.authenticate('jwt', {session:false}),
+router.get('/following/:id', passport.authenticate('jwt', {session:false}),
 (req, res) => {
-  Profile.findOne({user: req.user.id})
+  console.log('Inside following::'+req.params.id);
+  Profile.findOne({user: req.params.id})
          .then(profile => {
            if(!profile) {
             return res.status(400).json({profile:'Profile does not exist!'})

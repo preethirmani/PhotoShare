@@ -20,6 +20,7 @@ import CreatePost from './components/Posts/CreatePost';
 import Suggestions from './components/Home/Suggestions';
 import ProfileByHandle from './components/Profile/ProfileByHandle';
 import Following from './components/Follow/Following';
+import Followers from './components/Follow/Followers';
 
 
 
@@ -69,8 +70,10 @@ class App extends Component {
              <Route exact path='/suggestions' component={Suggestions}/>
              <Route exact path='/suggestions' component={Navbar}/>
               <Route exact path='/profilehanlde/:handle' component={Navbar} />
-             <Route exact path='/following' component={Navbar} />
-            <Route exact path='/following' component={Following}/>
+             <Route exact path='/following/:id' component={Navbar} />
+            <Route exact path='/following/:id' component={Following}/>
+             <Route exact path='/followers/:id' component={Navbar} />
+            <Route exact path='/followers/:id' component={Following}/>
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>
           </Router>

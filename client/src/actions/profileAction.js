@@ -76,10 +76,10 @@ export const unfollowUser = (userId, handle) => dispatch => {
 }
 
 //Get List of Following
-export const getfollowingList = () => dispatch => {
- 
+export const getfollowingList = (id) => dispatch => {
+ console.log('getfollowingList id'+id);
   axios.
-  get('/api/profile/following')
+  get(`/api/profile/following/${id}`)
   .then(res => 
     dispatch({
       type: GET_FOLLOWING,
@@ -93,10 +93,10 @@ export const getfollowingList = () => dispatch => {
 }
 
 //Get List of Followers
-export const getfollowersList = () => dispatch => {
+export const getfollowersList = (id) => dispatch => {
  
   axios.
-  get('/api/profile/followers')
+  get(`/api/profile/followers/${id}`)
   .then(res => 
     dispatch({
       type: GET_FOLLOWERS,
