@@ -12,7 +12,7 @@ class Suggestions extends Component {
     <div className='row d-flex justify-content-center main-div-sggnall'>      
       <div className='card suggestions-all-card'>
         <div className='card-header suggestions-all-header'>
-          <h5 className='all-suggestions'>All Suggestions</h5>
+          <h6 className='all-suggestions card-subtitle suggestion-title mb-2 text-muted'>All Suggestions</h6>
         </div>
         <div className='card-body'>
          <SuggestionContent suggestions={suggestions}/>

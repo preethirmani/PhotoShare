@@ -1,6 +1,6 @@
 
 import React,{ Component } from 'react';
-import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store'
 import jwt_decode from 'jwt-decode';
@@ -19,6 +19,8 @@ import { logoutUser } from './actions/authActions';
 import CreatePost from './components/Posts/CreatePost';
 import Suggestions from './components/Home/Suggestions';
 import ProfileByHandle from './components/Profile/ProfileByHandle';
+import Following from './components/Follow/Following';
+
 
 
   if(localStorage.jwtToken){
@@ -51,8 +53,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Route exact path='/' component={Login} />
-            
+             <Route exact path='/' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/forgotPassword' component={ForgotPassword} />
             <Route exact path='/changePassword' component={ChangePassword} />
@@ -68,6 +69,8 @@ class App extends Component {
              <Route exact path='/suggestions' component={Suggestions}/>
              <Route exact path='/suggestions' component={Navbar}/>
               <Route exact path='/profilehanlde/:handle' component={Navbar} />
+             <Route exact path='/following' component={Navbar} />
+            <Route exact path='/following' component={Following}/>
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>
           </Router>

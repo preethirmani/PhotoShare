@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentUserProfile } from '../../actions/profileAction';
 import { getUserPosts } from '../../actions/PostActions';
+import Spinner from '../common/Spinner';
 import '../../css/profile.css';
 import settings from '../../img/settings.png';
 
@@ -16,17 +17,20 @@ class Profile extends Component {
    this.props.getUserPosts();
   }
 
-  componentWillReceiveProps(nexProps) {
-
-  }
 
   render() {
     const { user }=this.props.auth;
+     const { currentProfile }=this.props.profile;
     const { userPosts } = this.props.posts; 
+    let loadingPost = this.props.posts.loading;
+    let loadingProfile = this.props.profile.loading;
+    let profileContent;
    
-
-    return(
-   <div className="main-div">
+   if(loadingPost || loadingProfile || userPosts === null || currentProfile === null) {
+     profileContent = <Spinner />
+   } else {
+     profileContent = 
+     <div className="main-div">
      <div className="row-top">
        <div className="img-div">
            <img className="profile-picture" src={user.avatar}/>    
@@ -41,8 +45,17 @@ class Profile extends Component {
         </div>
          <div className="div2">
            <span className='span-msg span-posts'>{userPosts.length} posts</span>
-           <span className='span-msg span-fllwrs'>{} following</span>
-           <span className='span-msg span-fllwng'>{} followers</span>
+           <Link className='follow-Link' to={'/following'}>
+              <span className='span-msg span-fllwrs'>
+             {currentProfile.following.length} following
+             </span>
+           </Link>
+           <Link className='follow-Link'>
+               <span className='span-msg span-fllwng'>
+             {currentProfile.followers.length} followers
+             </span>
+           </Link>
+          
            
          </div>
          <p className="div-name">{user.name}</p>
@@ -57,12 +70,16 @@ class Profile extends Component {
             <img className='img-gallery' src={item.image}/>
           )
         })
-       
       }
-
       </div>
   </div>
 
+
+   }
+
+  return(
+  
+      <div>{profileContent}</div>
     );
   }
 

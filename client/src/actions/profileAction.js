@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CURRENT_PROFILE, GET_ERRORS, GET_PROFILE_HANDLE } from './types';
+import { GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE } from './types';
 
 //Get CurrentUser Profile
 export const getCurrentUserProfile = () => dispatch => {
@@ -8,13 +8,13 @@ export const getCurrentUserProfile = () => dispatch => {
   .get('/api/profile')
   .then(res => 
     dispatch ({
-      type: GET_CURRENT_PROFILE,
-      payload: res.data
+      type : GET_CURRENT_PROFILE,
+      payload : res.data
     }))
   .catch(err =>
       dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
+        type : GET_ERRORS,
+        payload : err.response.data
       }));
 }
 
@@ -26,8 +26,8 @@ export const createProfile = (profileData, history) => dispatch => {
   .then(res => history.push('/profile'))
   .catch(err => 
     dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
+      type : GET_ERRORS,
+      payload : err.response.data
     }));
 }
 
@@ -38,13 +38,13 @@ export const getProfileByHandle = (handle) => dispatch => {
   .get(`/api/profile/handle/${handle}`)
   .then(res => 
     dispatch ({
-      type: GET_PROFILE_HANDLE,
-      payload: res.data
+      type : GET_PROFILE_HANDLE,
+      payload : res.data
     }))
   .catch(err =>
       dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
+        type : GET_ERRORS,
+        payload : err.response.data
       }));
 }
 
@@ -56,22 +56,56 @@ export const followUser = (userId, handle) => dispatch => {
   .then(res => dispatch(getProfileByHandle(handle)))
   .catch(err => 
     dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
+      type : GET_ERRORS,
+      payload : err.response.data
     }));
 }
 
 
 //UnFollow User
 export const unfollowUser = (userId, handle) => dispatch => {
-  console.log('UnFollow user Clicked and user_id' + userId);
+ 
   axios.
   get(`/api/profile/unFollow/${userId}`)
   .then(res => dispatch(getProfileByHandle(handle)))
   .catch(err => 
     dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
+      type : GET_ERRORS,
+      payload : err.response.data
     }));
 }
 
+//Get List of Following
+export const getfollowingList = () => dispatch => {
+ 
+  axios.
+  get('/api/profile/following')
+  .then(res => 
+    dispatch({
+      type: GET_FOLLOWING,
+      payload : res.data
+    }))
+  .catch(err => 
+    dispatch({
+      type : GET_ERRORS,
+      payload : err.response.data
+    }));
+}
+
+//Get List of Followers
+export const getfollowersList = () => dispatch => {
+ 
+  axios.
+  get('/api/profile/followers')
+  .then(res => 
+    dispatch({
+      type: GET_FOLLOWERS,
+      payload : res.data
+    }))
+  .catch(err => 
+    dispatch({
+      type : GET_ERRORS,
+      payload : err.response.data
+    }));
+
+  }

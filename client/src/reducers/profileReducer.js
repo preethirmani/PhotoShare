@@ -1,12 +1,14 @@
 
-import { GET_CURRENT_PROFILE, GET_PROFILE_HANDLE} from "../actions/types";
+import { GET_CURRENT_PROFILE, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE} from "../actions/types";
 
 
 
 const  initialState = {
   profile : null,
   currentProfile : null,
-  loading: false,
+  loading : false,
+  following : null,
+  followers : null
 }
 
 export default function (state=initialState, action) {
@@ -14,9 +16,9 @@ export default function (state=initialState, action) {
     case GET_CURRENT_PROFILE:
       return {
         ...state,
-        currentProfile: action.payload,
-        loading: false
-      }
+        currentProfile : action.payload,
+        loading : false
+      };
 
       case GET_PROFILE_HANDLE:
         return {
@@ -24,7 +26,22 @@ export default function (state=initialState, action) {
           profile : action.payload,
           loading : false
           
-        }
+        };
+
+        case GET_FOLLOWING:
+          return {
+            ...state,
+            following : action.payload,
+            loading : false
+          };
+
+        case GET_FOLLOWERS:
+          return {
+            ...state,
+            followers : action.payload,
+            loading : false
+          };
+
     
     default:
       return state;
