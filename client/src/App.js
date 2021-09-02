@@ -52,9 +52,11 @@ class App extends Component {
         <Router>
           <div className="App">
             <Route exact path='/' component={Login} />
+            
             <Route exact path='/register' component={Register} />
             <Route exact path='/forgotPassword' component={ForgotPassword} />
             <Route exact path='/changePassword' component={ChangePassword} />
+            <Route exact path='/changePassword' component={Navbar} />
             <Route exact path='/profile' component={Navbar} />
             <Route exact path='/profile' component={Profile} />
              <Route exact path='/editProfie' component={Navbar} />
@@ -63,7 +65,8 @@ class App extends Component {
             <Route exact path='/home' component={Home}/>
             <Route exact path='/createPost' component={Navbar} />
             <Route exact path='/createPost' component={CreatePost}/>
-            <Route exact path='/suggestions' component={Suggestions}/>
+             <Route exact path='/suggestions' component={Suggestions}/>
+             <Route exact path='/suggestions' component={Navbar}/>
               <Route exact path='/profilehanlde/:handle' component={Navbar} />
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
             </div>

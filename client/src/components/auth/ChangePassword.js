@@ -27,12 +27,15 @@ class ChangePassword extends Component {
   }
 
   onSubmit(e) {
+    const { user } = this.props.auth;
     e.preventDefault();
     const newPassword = {
        password: this.state.password,
       password2: this.state.password2,
-      oldPassword: this.state.oldPassword
+      oldPassword: this.state.oldPassword,
+      email: user.email
     }
+    console.log('newPassword::'+newPassword);
     this.props.changePasword(newPassword);
   }
 
@@ -42,6 +45,7 @@ class ChangePassword extends Component {
     return (
       <div className= "row d-flex justify-content-center main-div-chgPwd">
       <div className= "card  chgPwd-wrapper">
+        <h5 className='chgPwd-title' >Change Password</h5>
       <div className= "card-body">
        
 

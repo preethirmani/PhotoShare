@@ -75,7 +75,7 @@ export const changePasword = (passwordData) => dispatch =>{
  
      axios
      .post('/api/users/changePassword', passwordData)
-          .then(res => window.alert(res.data))
+          .then(res => window.alert('Password Changed Successfully!'))
           .catch(err => 
             dispatch({
             type: GET_ERRORS,
