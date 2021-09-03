@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE, PROFILE_LOADING} from './types';
+import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE, PROFILE_LOADING, SET_CURRENT_USER} from './types';
 
 //Get CurrentUser Profile
 export const getCurrentUserProfile = () => dispatch => {
@@ -116,12 +116,15 @@ export const getfollowersList = (id) => dispatch => {
 export const deleteAccount = () => dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     axios
-      .delete('/api/profile')
+      .delete('/api/profile/delete')
       .then(res =>
+      {
+        window.alert('Account deleted!')
         dispatch({
           type: SET_CURRENT_USER,
           payload: {}
         })
+      }
       )
       .catch(err =>
         dispatch({

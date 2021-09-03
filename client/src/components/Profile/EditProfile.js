@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profileAction';
+import { createProfile, deleteAccount } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 import '../../css/editProfile.css';
 import '../../css/changePassword.css';
@@ -34,9 +34,12 @@ class EditProfile extends Component {
         website : this.state.website,
         bio : this.state.bio
     }
-    console.log('newProfile:' + newProfile);
     
     this.props.createProfile(newProfile, this.props.history);
+  }
+
+  onClickDelete(e) {
+    this.props.deleteAccount();
   }
 
   render() {
@@ -46,8 +49,13 @@ class EditProfile extends Component {
       <div>
         <div className='row d-flex justify-content-center main-div-editPrfl'>
           <div className="card editPrfl-wrapper">
-         
-            <div className="card-body">
+             <div className='card-header follow-header'> 
+                  <h5 
+                  className='card-subtitle edit-profile-title mb-2 follow-title'>
+                    Edit Profile
+                    </h5>
+              </div>
+            <div className="card-body edit-card">
               <form noValidate onSubmit = {this.onSubmit.bind(this)}
               className= "form-edit-prfl">
                 <div className= "form-group form-grp-div">
@@ -100,8 +108,19 @@ class EditProfile extends Component {
                   onChange = {this.onChange.bind(this)}
                   placeholder="Location"/> 
                 </div>
-
+               
+                
                 <button type="submit" className="btn btn-primary btn-edit-prfl">Submit</button>  
+
+            
+                
+                
+
+               
+                 <Link className='delete-account' 
+                 onClick = {this.onClickDelete.bind(this)} >
+                  Delete Account</Link>
+            
 
               </form>
             </div>
@@ -114,11 +133,12 @@ class EditProfile extends Component {
 
 EditProfile.propTypes = {
   auth : PropTypes.object.isRequired,
-  createProfile : PropTypes.func.isRequired
+  createProfile : PropTypes.func.isRequired,
+  deleteAccount : PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth : state.auth
 });
 
-export default connect(mapStateToProps,{createProfile})(withRouter(EditProfile));
+export default connect(mapStateToProps,{createProfile, deleteAccount})(withRouter(EditProfile));

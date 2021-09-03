@@ -13,18 +13,27 @@
 
 .editPrfl-wrapper {
     width:40rem;
-   padding: 10px;
+   padding: 0px;
+}
+
+.edit-card {
+  padding: 0px;
 }
 
 .main-div-editPrfl {
   margin-top : 10px;
+  padding: 65px;
 }
 
+.edit-profile-title {
+  padding: 0px;
+}
 
 
 .form-edit-prfl {
  
-  padding: 4px;
+  padding:0px;
+  margin-top: 5px;
 }
 
 .frm-ctrl-edit {
@@ -77,4 +86,15 @@
 .frm-ctrl-name {
   width: 45%;
   margin-left: 96px;
+}
+
+.delete-account {
+  text-decoration: none;
+  display: block;
+  font-weight: 700;
+    justify-self:center;
+  margin-left: 220px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
 }

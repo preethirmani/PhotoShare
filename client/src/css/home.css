@@ -1,12 +1,14 @@
 .home-main-div {
   padding: 65px;
+ 
+
 }
 
 .card-posts {
   width: 550px;
   flex-direction: column;
   margin-top: 1%;
-  margin-left:20px;
+  
 }
 
 .post-title {
@@ -139,8 +141,8 @@ margin-bottom: 15px;
 
 
 /** Media Query **/
-@media (max-width: 600px) {
-  .suggestions-card {
+@media (max-width: 800px) {
+  .suggestions-card, .profile-card{
     display:none;
   }
 }
