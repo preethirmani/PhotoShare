@@ -5,7 +5,8 @@ import {
   GET_FOLLOWING, 
   GET_PROFILE_HANDLE,
   CLEAR_CURRENT_PROFILE,
-  PROFILE_LOADING } from "../actions/types";
+  PROFILE_LOADING,
+  GET_SUGGESTIONS } from "../actions/types";
 
 
 
@@ -14,7 +15,8 @@ const  initialState = {
   currentProfile : null,
   loading : false,
   following : null,
-  followers : null
+  followers : null,
+  suggestions : null
 }
 
 export default function (state=initialState, action) {
@@ -52,6 +54,12 @@ export default function (state=initialState, action) {
           return {
             ...state,
             followers : action.payload,
+            loading : false
+          };
+         case GET_SUGGESTIONS:
+          return {
+            ...state,
+            suggestions : action.payload,
             loading : false
           };
 

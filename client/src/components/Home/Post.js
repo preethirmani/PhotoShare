@@ -3,10 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { likePost,unlikePost,deletePost } from '../../actions/PostActions';
+import { likePost,unlikePost,deletePost, addComment } from '../../actions/PostActions';
 import "../../css/home.css";
 
 class Post extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+     
+      text: ''
+    }
+  }
 
   onDeleteClick(id) {
     this.props.deletePost(id);
@@ -28,6 +36,24 @@ class Post extends Component {
     } else {
       return false;
     }
+  }
+
+  onChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  postComment(e) {
+    const { user } = this.props.auth;
+
+    e.preventDefault();
+    const newComment = {
+       name: user.name,
+      avatar: user.avatar,
+      text: this.state.text
+    };
+    this.props.addComment(newComment);
+
+
   }
 
   render() {
@@ -114,7 +140,12 @@ class Post extends Component {
                         </div>
                     
                       <form>
-                        <textarea  name="comment" className="home-comment"/>
+                      <div className='home-comment-div'>
+                        <textarea  name="text" value={this.state.text}
+                        onChange={this.onChange.bind(this)}
+                        className="form-control home-comment" />
+                        <Link className='post-comment' >Post</Link>
+                      </div>
                       </form>
                       </div>
                     
@@ -134,6 +165,7 @@ Post.propTypes = {
   likePost : PropTypes.func.isRequired,
   unlikePost : PropTypes.func.isRequired,
   deletePost : PropTypes.func.isRequired,
+  addComment : PropTypes.func.isRequired,
   post : PropTypes.object.isRequired,
   auth : PropTypes.object.isRequired
 }
@@ -142,4 +174,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps,{likePost, unlikePost, deletePost}) (Post);
+export default connect(mapStateToProps,{likePost, unlikePost, deletePost, addComment}) (Post);

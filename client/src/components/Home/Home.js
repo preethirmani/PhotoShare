@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import EditProfile from '../Profile/EditProfile';
 
-import { getAllPosts,getSuggestions } from '../../actions/PostActions';
-import { getCurrentUserProfile  } from '../../actions/profileAction';
+import { getAllPosts } from '../../actions/PostActions';
+import { getCurrentUserProfile, getSuggestions } from '../../actions/profileAction';
 import SuggestionsList  from './SuggestionsList';
 import PostsContent from './PostsContent';
 import Spinner from '../common/Spinner';
@@ -23,32 +23,25 @@ class Home extends Component {
 
   render() {
 
-    const {  loading, posts, suggestions } = this.props.posts;
-    const { currentProfile } = this.props.profile;
+    const {  loading, posts } = this.props.posts;
+    const { currentProfile, suggestions } = this.props.profile;
     const { user } = this.props.auth;
     let homeContent;
     let suggContent;
-    if(currentProfile === null) {
-      homeContent = 
-      <div>
-            <p className="lead text-muted">Welcome {user.name}</p>
-            <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/editProfie" className="btn btn-lg btn-info">
-              Create Profile
-            </Link>
-          </div>
-    } else {
+ 
       if(posts === null || loading || suggestions === null) {
-        homeContent = <Spinner />;
+
+             homeContent = <Spinner />;
+
        } else {
 
-        homeContent = 
-            <PostsContent posts = {posts}/>;
-        suggContent = 
-            <SuggestionsList suggestions = {suggestions}/>;
+            homeContent = 
+                <PostsContent posts = {posts}/>;
+            suggContent = 
+                <SuggestionsList suggestions = {suggestions}/>;
             
       }
-    }
+    
     
     
     return (

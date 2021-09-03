@@ -1,4 +1,4 @@
-import { DELETE_POST, GET_ALL_POSTS, GET_POST, GET_USER_POSTS, GET_SUGGESTIONS, POST_LOADING, GET_POSTS_HANDLE } from "../actions/types";
+import { DELETE_POST, GET_ALL_POSTS, GET_POST, GET_USER_POSTS,  POST_LOADING, GET_POSTS_HANDLE } from "../actions/types";
 
 
 const intialState = {
@@ -6,7 +6,6 @@ const intialState = {
   post: {},
   userPosts : [],
   postsHandle : [],
-  suggestions : null,
   loading: false
 }
 
@@ -46,12 +45,7 @@ export default function (state = intialState, action) {
             loading : false
             };
     
-    case GET_SUGGESTIONS:
-          return {
-            ...state,
-            suggestions : action.payload,
-            loading : false
-          };
+   
 
      case DELETE_POST:
       return {

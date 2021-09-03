@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE, PROFILE_LOADING, SET_CURRENT_USER} from './types';
+import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_SUGGESTIONS, GET_PROFILE_HANDLE, PROFILE_LOADING, 
+  SET_CURRENT_USER} from './types';
 import { logoutUser } from './authActions';
 
 
@@ -23,7 +24,7 @@ export const getCurrentUserProfile = () => dispatch => {
 
 //Create Profile
 export const createProfile = (profileData, history) => dispatch => {
-  
+  dispatch(clearCurrentProfile());
   axios.
   post('/api/profile',profileData)
   .then(res => history.push('/profile'))
@@ -113,6 +114,22 @@ export const getfollowersList = (id) => dispatch => {
 
   }
 
+//Get Suggestions
+export const getSuggestions = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios.
+  get('/api/profile/suggestions')
+  .then(res => 
+    dispatch({
+      type: GET_SUGGESTIONS,
+      payload: res.data
+    }))
+  .catch(err => 
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+}
 
 // Delete account & profile
 export const deleteAccount = () => dispatch => {
