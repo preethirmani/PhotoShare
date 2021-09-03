@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { CLEAR_CURRENT_PROFILE, GET_CURRENT_PROFILE, GET_ERRORS, GET_FOLLOWERS, GET_FOLLOWING, GET_PROFILE_HANDLE, PROFILE_LOADING, SET_CURRENT_USER} from './types';
+import { logoutUser } from './authActions';
+
 
 //Get CurrentUser Profile
 export const getCurrentUserProfile = () => dispatch => {
@@ -120,10 +122,7 @@ export const deleteAccount = () => dispatch => {
       .then(res =>
       {
         window.alert('Account deleted!')
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: {}
-        })
+        dispatch(logoutUser());
       }
       )
       .catch(err =>

@@ -20,7 +20,6 @@ class ProfileByHandle extends Component {
      const { profile } = nextProps.profile;
      const { user } = this.props.auth;
      //checking current user is a follower
-     console.log('Inside nextprops');
      if (profile !== null) {
       let followersList = profile.followers.map(follower => follower.user);
        if(followersList.includes(user.id)) {
@@ -54,6 +53,7 @@ class ProfileByHandle extends Component {
   render() {
     
     const { profile }=this.props.profile;
+    const { user } = this.props.auth;
     const { postsHandle } = this.props.posts; 
     let loadingProfile = this.props.profile.loading;
     let loadingPost = this.props.posts.loading;
@@ -75,16 +75,16 @@ class ProfileByHandle extends Component {
          <div className="div1">
           <h4 className="profile-handle">{profile.handle}</h4>
 
-          {!this.state.showFollow && (
+          {user.username !== profile.handle && ( !this.state.showFollow && (
             <Link className="btn btn-follow-user" 
             onClick={this.onclickFollow.bind(this, profile.user._id, profile.handle)} 
-            to={`/profilehanlde/${profile.handle}`} >Follow</Link>)}
+            to={`/profilehanlde/${profile.handle}`} >Follow</Link>))}
 
-          {this.state.showFollow && (
+          {user.username !== profile.handle && (this.state.showFollow && (
               <Link className="btn btn-follow-user" 
               onClick={this.onclickUnFollow.bind(this, profile.user._id, profile.handle)}
               to={`/profilehanlde/${profile.handle}`} >unFollow</Link>
-          )}
+          ))}
         </div>
          <div className="div2">
            <span className='span-msg span-posts'>{postsHandle.length} posts</span>

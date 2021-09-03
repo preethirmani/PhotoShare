@@ -13,8 +13,10 @@ class SuggestionsList extends Component {
       <div>
           <div className ='card profile-card'> 
             <div className='card-body profile-card'>
+            <Link to={`/profilehanlde/${auth.user.username}`}>
               <img className='rounded-circle avatar-user' src={auth.user.avatar}/>
               <span className='user-handle'>{auth.user.username}</span>
+              </Link>
             </div>
           </div>
           <div className ='card suggestions-card' >
