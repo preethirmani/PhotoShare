@@ -29,7 +29,7 @@ Suggestions.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  suggestions : state.posts.suggestions
+  suggestions : state.profile.suggestions
 });
 
 

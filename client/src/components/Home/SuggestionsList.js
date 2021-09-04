@@ -8,7 +8,7 @@ class SuggestionsList extends Component {
   render() {
     const { suggestions, auth } = this.props;
   
-   
+    console.log('suggestions:'+suggestions);
     return (
       <div>
           <div className ='card profile-card'> 
