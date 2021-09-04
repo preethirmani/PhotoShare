@@ -6,7 +6,6 @@ import classnames from 'classnames';
 import { likePost,unlikePost,deletePost, addComment } from '../../actions/PostActions';
 import "../../css/home.css";
 import AddComment from '../comment/AddComment';
-import Moment from "react-moment";
 import Comments from '../comment/Comments';
 
 
@@ -67,7 +66,7 @@ class Post extends Component {
       </div>
       <img className= "card-img-top img-posts-home" src={post.image} alt="Card image cap"/>
                     
-      <div className= "card-body">
+      <div className= "card-body card-content-posts">
         <div className='icons'>
           { (hasLiked) ? (
               <div type="button">

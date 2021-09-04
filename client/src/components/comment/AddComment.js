@@ -42,7 +42,8 @@ class AddComment extends Component {
   render() {
    
     return (
-      <form  >
+     <div className ='home-comment-div' > 
+      <form className='add-comment-form' >
         <textarea type='text' className="home-comment" name="text"
          placeholder="Add new comment..."
           value={this.state.text} onChange={this.onChange.bind(this)}>
@@ -54,6 +55,7 @@ class AddComment extends Component {
           </Link>
         
       </form>
+    </div>
     )
   }
 }

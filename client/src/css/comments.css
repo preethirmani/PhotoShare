@@ -1,13 +1,22 @@
 .home-comment-div {
-  border : 1px solid black;
+  border : 1px solid rgba(128, 128, 128, 0.877);
   display: flex;
   flex-direction: row;
+  padding: 0px;
+  width: 100%;
+  margin-top: 20px;
 }
-
-
+.add-comment-form {
+  width: 100%;
+}
+.home-comment {
+  width: 90%;
+  border:none;
+}
 .post-comment {
   text-decoration: none;
   font-weight: 600;
+  color: rgba(var(--d69,0,149,246),1);
 }
 
 .comment-handle {

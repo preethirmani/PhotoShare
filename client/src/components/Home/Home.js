@@ -57,8 +57,8 @@ class Home extends Component {
     return (
      <div className='container-fluid home-main-div'>
       <div className='container '>
-        <div className='row flex-nowrap' >
-            <div className='col md-8'>{homeContent}</div>
+        <div className='row flex-nowrap homepg-posts-content' >
+            <div className='col'>{homeContent}</div>
           <div className='col div-suggestions'>
             {suggContent}
           </div>
