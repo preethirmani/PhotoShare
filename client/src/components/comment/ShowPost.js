@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import Moment from "react-moment"; 
 import Spinner from "../common/Spinner";
-import Comments from './Comments';
 import AddComment from './AddComment';
 import { likePost,unlikePost,deletePost, getPost } from '../../actions/PostActions';
+import AllComments from './AllComments';
 
 class ShowPost extends Component {
    constructor(props) {
@@ -121,7 +121,7 @@ class ShowPost extends Component {
 
               <div className='comments-div'>
                
-                  <Comments comments={post.comments} postId={postId} />
+                  <AllComments comments={post.comments} postId={postId} />
                
               </div>
                   

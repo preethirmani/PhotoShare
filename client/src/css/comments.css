@@ -143,7 +143,7 @@ a:active {
 }
 
 hr {
-  width: 85% ;
+  width: 100% ;
 }
 
 .post-date {
@@ -154,3 +154,13 @@ hr {
   clear: both;
 }
 
+ .handle-all-comment{
+
+  position: relative;
+  font-size: 14px;
+  color: black;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: lowercase;
+  text-decoration: none;
+ }

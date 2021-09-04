@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteComment } from '../../actions/PostActions';
-import '../../css/comments.css';
+
+class AllCommentsComp extends Component {
 
 
- class CommentItem extends Component {
-
-   deleteComment(postId, commentId) {
+  deleteComment(postId, commentId) {
     this.props.deleteComment(postId, commentId);
-   }
+  }
 
-   render() {
+
+  render() {
     const {comment, auth, postId} = this.props;
     let deleteIcon;
+  
  
-
-   
     
+
     if (comment.user === auth.user.id)  {
-      console.log('inside if');
       deleteIcon = (
         <div type="button" className='col-lg-2' onClick={this.deleteComment.bind(this, postId, comment._id)}>
           <div className='delete-post'>
@@ -40,24 +39,23 @@ import '../../css/comments.css';
     }
     
     return (
-    
-        <div class='row'>
-          <div >
-            <div>
-              <Link
-                to={`/profile/${comment.handle}`}
-                className='comment-handle'
-              >
-                {comment.handle}
-              </Link>
-              <span>&nbsp; {comment.text}  </span>
-            </div>
-           
+
+        <section className='row'>      
+      
+        <div className={`${comment.user._id === auth.user.id ? "col-lg-8" : "col-lg-10"}`}>
+          <div id='col-space'>
+            <Link to={`/profile/${comment.handle}`} className='handle-all-comment'>
+              {comment.handle}
+            </Link>
+            <span className='textStyle-comment'>
+              &nbsp; {comment.text}
+            </span>
           </div>
-            
         </div>
+        {deleteIcon}
+      </section>
      
-    );
+    )
   }
 }
 
@@ -65,4 +63,5 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect (mapStateToProps,{deleteComment}) (CommentItem);
+export default connect(mapStateToProps, {deleteComment})(AllCommentsComp);
+
