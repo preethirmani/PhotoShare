@@ -42,16 +42,17 @@ class Post extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  postComment(e) {
+  postComment(id) {
     const { user } = this.props.auth;
 
-    e.preventDefault();
+    
     const newComment = {
        name: user.name,
       avatar: user.avatar,
       text: this.state.text
     };
-    this.props.addComment(newComment);
+    console.log('newComment::'+newComment);
+    this.props.addComment(id, newComment);
 
 
   }
@@ -138,13 +139,20 @@ class Post extends Component {
                             &nbsp; {post.text}
                           </span>
                         </div>
-                    
+                        
+                        <div className='comments-div'>
+                          
+                        </div>
                       <form>
                       <div className='home-comment-div'>
                         <textarea  name="text" value={this.state.text}
                         onChange={this.onChange.bind(this)}
                         className="form-control home-comment" />
-                        <Link className='post-comment' >Post</Link>
+                        <Link className='post-comment' 
+                          onClick=
+                          {this.postComment.bind(this, post._id)} >
+                            Post
+                        </Link>
                       </div>
                       </form>
                       </div>

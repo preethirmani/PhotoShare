@@ -205,7 +205,8 @@ router.post('/unLike/:id', passport.authenticate('jwt',{session: false}),
 // @access private
 router.post('/comment/:id', passport.authenticate('jwt',{session:false}),
 (req,res) => {
-
+console.log('In comment::');
+console.log('comment id'+ req.user.id);
   // Check Validation
   const {errors, isValid} = validatePostInput(req.body);
     if (!isValid) {

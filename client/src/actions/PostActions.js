@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CLEAR_ERRORS, DELETE_POST, GET_ALL_POSTS, GET_ERRORS, GET_POST, GET_USER_POSTS, POST_LOADING, GET_POSTS_HANDLE } from './types';
 
-//Create A POst
+//Create A Post
 export const createNewpost = (userdata, history) => dispatch => {
   dispatch (clearErrors());
   console.log('UserData::' + userdata);

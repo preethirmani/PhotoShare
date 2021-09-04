@@ -23,27 +23,38 @@ class Home extends Component {
 
   render() {
 
+   
+  
+
     const {  loading, posts } = this.props.posts;
     const { currentProfile, suggestions } = this.props.profile;
     const { user } = this.props.auth;
+   
     let homeContent;
     let suggContent;
- 
+
+    if(currentProfile === null) {
+      homeContent = 
+       <div>
+            <p className="lead text-muted">Welcome {user.name}</p>
+            <p>You have not yet setup a profile, please add some info</p>
+            <Link to="/editProfie" className="btn btn-lg btn-info">
+              Create Profile
+            </Link>
+        </div>
+    } else {
+    
       if(posts === null || loading || suggestions === null) {
 
              homeContent = <Spinner />;
 
        } else {
-
             homeContent = 
                 <PostsContent posts = {posts}/>;
             suggContent = 
                 <SuggestionsList suggestions = {suggestions}/>;
-            
       }
-    
-    
-    
+    }
     return (
      <div className='container-fluid home-main-div'>
       <div className='container '>
@@ -63,6 +74,7 @@ class Home extends Component {
 Home.prototypes = { 
   posts : PropTypes.object.isRequired,
   profile : PropTypes.object.isRequired,
+  errors : PropTypes.object.isRequired,
   getAllPosts : PropTypes.func.isRequired,
   getSuggestions : PropTypes.func.isRequired
 };
@@ -70,7 +82,8 @@ Home.prototypes = {
 const mapStateToProps = state => ({
       auth : state.auth,
       posts : state.posts,
-      profile : state.profile
+      profile : state.profile,
+      errors : state.errors
 });
 
 export default connect(mapStateToProps, {getAllPosts, getSuggestions, getCurrentUserProfile}) (withRouter(Home));
