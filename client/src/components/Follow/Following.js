@@ -20,7 +20,7 @@ class Following extends Component {
        followContent = <Spinner />
      } else {
        followContent = 
-        <div className='ow d-flex justify-content-center main-div-followCard'>
+        <div className='row d-flex justify-content-center main-div-followCard'>
           <div className ='card following-card' >
               <div className='card-header follow-header'> 
                   <h6 

@@ -18,7 +18,8 @@ class Followers extends Component {
        followContent = <Spinner />
      } else {
        followContent = 
-        <div className='ow d-flex justify-content-center main-div-followCard'>
+     
+        <div className='row d-flex justify-content-center main-div-followCard'>
           <div className ='card following-card' >
               <div className='card-header follow-header'> 
                   <h6 
@@ -29,12 +30,13 @@ class Followers extends Component {
               </div>          
             </div>
           </div>
+        
           
      }
 
    
     return (
-      <div>
+      <div className = 'follow-parent'>
           {followContent}
         </div>
     )

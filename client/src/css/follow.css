@@ -2,6 +2,10 @@
   padding: 60px;
   margin-top : 50px;
 }
+.follow-parent {
+ 
+  height: 100%;
+}
 
 .following-card {
     width: 28rem;
