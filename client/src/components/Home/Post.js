@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { likePost,unlikePost,deletePost, addComment } from '../../actions/PostActions';
 import "../../css/home.css";
+import AddComment from '../comment/AddComment';
+import Moment from "react-moment";
+import Comments from '../comment/Comments';
+
 
 class Post extends Component {
 
@@ -42,25 +46,13 @@ class Post extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  postComment(id) {
-    const { user } = this.props.auth;
 
-    
-    const newComment = {
-       name: user.name,
-      avatar: user.avatar,
-      text: this.state.text
-    };
-    console.log('newComment::'+newComment);
-    this.props.addComment(id, newComment);
-
-
-  }
 
   render() {
     const { post, auth, showActions} = this.props;
     let likedbyList = post.likes.filter((like,index) => index === 0);
     let likedby = likedbyList.map(liked=> liked.handle);
+    let comments = post.comments.filter(comment => comment.user !== null)
     
     
     return (
@@ -104,16 +96,14 @@ class Post extends Component {
                                   >
                                     <i className="text-secondary fas fa-thumbs-down" />
                                   </button>
-                                  <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-                                    Comments
-                                  </Link>
+                                 
                                   {post.user === auth.user.id ? (
                                     <button
                                       onClick={this.onDeleteClick.bind(this, post._id)}
                                       type="button"
                                       className="btn btn-danger mr-1"
                                     >
-                                      <i className="fas fa-times" />
+                                      <i className="fa fa-trash" />
                                     </button>
                                   ) : null}
                                 </span>
@@ -140,21 +130,17 @@ class Post extends Component {
                           </span>
                         </div>
                         
-                        <div className='comments-div'>
-                          
-                        </div>
-                      <form>
-                      <div className='home-comment-div'>
-                        <textarea  name="text" value={this.state.text}
-                        onChange={this.onChange.bind(this)}
-                        className="form-control home-comment" />
-                        <Link className='post-comment' 
-                          onClick=
-                          {this.postComment.bind(this, post._id)} >
-                            Post
-                        </Link>
-                      </div>
-                      </form>
+                        <div >
+                             <Comments
+                      comments={comments}
+                      postId={post._id}
+                      showAvatar={true}
+                      showDelete={true}
+                    />
+                   
+                    <AddComment postId={post._id} />
+                    </div>
+                     
                       </div>
                     
                   </div>

@@ -27,23 +27,6 @@ export const getAllPosts = () => dispatch => {
   .catch(err => console.log(err));
 }
 
-//Get Single Post
-export const getPost = id => dispatch => {
-  dispatch(setPostLoading());
-  axios
-  .get(`/api/posts/${id}`)
-  .then(res => 
-    dispatch({
-      type:GET_POST,
-      payload:res.data
-    }))
-  .catch(err =>
-      dispatch({
-        type: GET_POST,
-        payload: null
-      }));
-}
-
 //Get All Posts for a user
 export const getUserPosts = () => dispatch => {
   dispatch(setPostLoading());
@@ -154,10 +137,7 @@ export const addComment = (postId, commentData) => dispatch => {
   axios
     .post(`/api/posts/comment/${postId}`, commentData)
     .then(res =>
-      dispatch({
-        type: GET_POST,
-        payload: res.data
-      })
+      dispatch(getAllPosts())
     )
     .catch(err =>
       dispatch({
@@ -166,6 +146,23 @@ export const addComment = (postId, commentData) => dispatch => {
       })
     );
 };
+
+//Get Post by id
+export const getPost = (postId) => dispatch => {
+  console.log('postId in getPost::'+postId);
+  dispatch(setPostLoading());
+  axios
+    .get(`/api/posts/id/${postId}`)
+    .then(res => {
+      dispatch({
+      type: GET_POST,
+      payload: res.data
+    })})
+    .catch(err => {
+      console.log(err)
+    })
+};
+
 
 // Delete Comment
 export const deleteComment = (postId, commentId) => dispatch => {

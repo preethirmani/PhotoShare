@@ -21,6 +21,7 @@ import Suggestions from './components/Home/Suggestions';
 import ProfileByHandle from './components/Profile/ProfileByHandle';
 import Following from './components/Follow/Following';
 import Followers from './components/Follow/Followers';
+import ShowPost from './components/comment/ShowPost';
 
 
 
@@ -76,6 +77,9 @@ class App extends Component {
              <Route exact path='/followers/:id' component={Navbar} />
             <Route exact path='/followers/:id' component={Followers}/>
             <Route exact path='/profilehanlde/:handle' component={ProfileByHandle}/>
+
+             <Route exact path='/showPost/:id' component={Navbar} />
+            <Route exact path='/showPost/:id' component={ShowPost}/>
             </div>
           </Router>
         </Provider>

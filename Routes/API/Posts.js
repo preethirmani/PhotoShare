@@ -58,7 +58,9 @@ router.get('/', passport.authenticate('jwt', {session:false}),
 // @access private
 router.get('/id/:id', passport.authenticate('jwt',{session: false}),
 (req, res) => {
+  console.log('req.params.id;;;'+req.params.id);
   Post.findById(req.params.id)
+      .populate('user',['name','avatar'])
       .then(posts => {
         if(!posts) {
           return res.status(404).json({posts:'No Posts found for the id!'});
@@ -205,8 +207,7 @@ router.post('/unLike/:id', passport.authenticate('jwt',{session: false}),
 // @access private
 router.post('/comment/:id', passport.authenticate('jwt',{session:false}),
 (req,res) => {
-console.log('In comment::');
-console.log('comment id'+ req.user.id);
+
   // Check Validation
   const {errors, isValid} = validatePostInput(req.body);
     if (!isValid) {

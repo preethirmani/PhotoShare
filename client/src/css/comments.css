@@ -1,0 +1,156 @@
+.home-comment-div {
+  border : 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.post-comment {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.comment-handle {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color:black;
+}
+
+
+.post-wrapper {
+  height: 100%; 
+  position: absolute;
+  margin:auto; 
+  top: 0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.2);
+
+ }
+ 
+.container-post {
+  height:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center; 
+  position: relative; 
+  z-index: 2;
+
+}
+.post-image {
+  width: 550px;
+  height: 550px;
+  object-fit: cover;
+}
+.comment-content{
+  width: 320px;
+  height: 550px;
+  border:  1px solid rgb(218, 215, 215);
+  background-color: white;
+
+}
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+a:active {
+  opacity: .5;
+}
+.user-avatar {
+  
+  width: 40px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+ .handle-post{
+  text-decoration: none;
+  position: relative;
+  top: 10px;
+  color: black;
+   margin-left: 15px;
+  font-weight: 600;
+  
+  
+ }
+
+
+ .postTitle-comment-div {
+  margin-bottom: 30px;
+ 
+ }
+ 
+.postTitle-comment{
+  font-size: 17px;
+  font-weight: 600;
+  position: relative;
+  top: 14px;
+  overflow-wrap: break-word;
+}
+
+.comment-textarea {
+  outline: transparent;
+  resize: none;
+  width: 85%;
+  height:50px;
+  margin-top: -3px;
+  border: transparent;
+  overflow-y: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow: auto;
+  background-color: white;
+}
+
+.comments-div {
+  overflow-y: auto;
+  height: 300px;
+  overflow-x: hidden;
+}
+
+ .post {
+  display: inline;
+  color: rgba(var(--d69,0,149,246),1);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px; 
+  border: none;
+  position: relative;
+  bottom: 30px;
+  outline:none;
+  background-color: white;
+}
+
+.post:disabled {
+  color: grey;
+  background-color: white;
+}
+#footer {
+  margin-top: -76px;
+  padding: 0px;
+}
+
+.icons-post {
+  color: black;
+  margin-left: 15px;
+  
+}
+.delete-post {
+  color: black;
+  margin-left: 5px;
+
+}
+
+hr {
+  width: 85% ;
+}
+
+.post-date {
+  font-size: 11px;
+  margin-left: 15px;
+  color: gray;
+  margin-top: -2px;
+  clear: both;
+}
+
