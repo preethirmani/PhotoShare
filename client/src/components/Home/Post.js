@@ -25,22 +25,16 @@ class Post extends Component {
   }
 
   onLikeClick(id) {
+    console.log('like'+id);
     this.props.likePost(id);
   }
 
   onUnlikeClick(id) {
+    window.alert('Unlike'+id);
     this.props.unlikePost(id);
   }
 
-  findUserLike(likes) {
-    const { auth } = this.props;
-
-    if (likes.filter(like => like.user === auth.user.id).length > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 
   onChange(e) {
     this.setState({[e.target.name]: e.target.value});
@@ -49,101 +43,78 @@ class Post extends Component {
 
 
   render() {
-    const { post, auth, showActions} = this.props;
+    const { post, auth} = this.props;
     let likedbyList = post.likes.filter((like,index) => index === 0);
     let likedby = likedbyList.map(liked=> liked.handle);
     let comments = post.comments.filter(comment => comment.user !== null)
+    let hasLiked = false;
     
-    
+     if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
+      hasLiked = true;
+    } 
+    console.log( 'hasLiked' +  hasLiked);
     return (
       
-                  <div className= "card card-posts">
-                    <div className="post-title">
-                    <Link to={`/profilehanlde/${post.handle}`}>
-                      <img
-                      className='rounded-circle post-title-image'
-                      src={auth.user.avatar}
-                      alt='avatar'/>
-                    </Link>
-
-                    <Link className='post-title-Link' to={`/profilehanlde/${post.handle}`}>
-                      <h6 className= "card-title post-title ">{post.handle}</h6>
-                    </Link>
-                     </div>
-                    <img className= "card-img-top img-posts-home" src={post.image} alt="Card image cap"/>
+     <div className= "card card-posts">
+      <div className="post-title">
+        <Link to={`/profilehanlde/${post.handle}`}>
+          <img className='rounded-circle post-title-image'
+            src={auth.user.avatar} alt='avatar'/>
+        </Link>
+        <Link className='post-title-Link' to={`/profilehanlde/${post.handle}`}>
+          <h6 className= "card-title post-title ">{post.handle}</h6>
+        </Link>
+      </div>
+      <img className= "card-img-top img-posts-home" src={post.image} alt="Card image cap"/>
                     
-                      <div className= "card-body">
-                       {showActions ? (
-                      
-                          <span>
-                              <button
-                                onClick={this.onLikeClick.bind(this, post._id)}
-                                type="button"
-                                className="btn btn-light mr-1"
-                              >
-                                <i
-                                  className={classnames('fas fa-thumbs-up', {
-                                    'text-info': this.findUserLike(post.likes)
-                                  })}
-                                />
-
-                                  <span className="badge badge-light">{post.likes.length}</span>
-                                  </button>
-                                  <button
-                                    onClick={this.onUnlikeClick.bind(this, post._id)}
-                                    type="button"
-                                    className="btn btn-light mr-1"
-                                  >
-                                    <i className="text-secondary fas fa-thumbs-down" />
-                                  </button>
-                                 
-                                  {post.user === auth.user.id ? (
-                                    <button
-                                      onClick={this.onDeleteClick.bind(this, post._id)}
-                                      type="button"
-                                      className="btn btn-danger mr-1"
-                                    >
-                                      <i className="fa fa-trash" />
-                                    </button>
-                                  ) : null}
-                                </span>
+      <div className= "card-body">
+        <div className='icons'>
+          { (hasLiked) ? (
+              <div type="button">
+                <i className='fa fa-heart' 
+                  style={{ fontSize: "1.5em", color: "red" }}
+                  onClick={this.onUnlikeClick.bind(this, post._id)}
+                  aria-hidden='true'
+                />
+              </div>
+            ) : (                  
+              <div type="button">
+                <i className='fa fa-heart-o'
+                  onClick={this.onLikeClick.bind(this, post._id)}
+                  style={{ fontSize: "1.5em", color: "black" }}
+                  aria-hidden='true'
+               />
+              </div>
+            )
+          }
                             
-                           ) : null}
-                         <div className='div-likes-text'>
-                       
-                          {post.likes && 
-                           <div>
-                          Liked by &nbsp;
-                          <Link className='post-handle' 
-                          to={`/profilehanlde/${likedby}`}>{likedby}</Link> and others
-                          </div> }
+          {post.user === auth.user.id ? (
+           <div type="button" className="button delete-btn"
+              onClick={this.onDeleteClick.bind(this, post._id)}>
+             <i className="fa fa-trash home-del-icon"  
+             style={{ fontSize: "1.25em", color: "black" }}/>
+            </div>
+           ) : null}
+        </div>                         
+         <div className='div-likes-text'>
+            {post.likes && post.likes.length } likes
                         
-                      </div>
+      </div>
                       
-                        <div>
-                          <Link className='post-handle'
-                            to={`/profilehanlde/${post.handle}`} >
-                            {post.handle}
-                          </Link>
-                          <span className='post-text'>
-                            &nbsp; {post.text}
-                          </span>
-                        </div>
+       <div>
+          <Link className='post-handle' to={`/profilehanlde/${post.handle}`} >
+            {post.handle}
+          </Link>
+          <span className='post-text'> &nbsp; {post.text} </span>
+        </div>
                         
-                        <div >
-                             <Comments
-                      comments={comments}
-                      postId={post._id}
-                      showAvatar={true}
-                      showDelete={true}
-                    />
-                   
-                    <AddComment postId={post._id} />
-                    </div>
-                     
-                      </div>
-                    
-                  </div>
+        <div>
+          <Comments comments={comments} postId={post._id} 
+              showDelete={true}/>
+          <AddComment postId={post._id} />
+        </div>
+      </div>
+    </div>
 
     
     )
