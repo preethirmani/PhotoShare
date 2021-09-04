@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import EditProfile from '../Profile/EditProfile';
 
 import { getAllPosts } from '../../actions/PostActions';
 import { getCurrentUserProfile, getSuggestions } from '../../actions/profileAction';
