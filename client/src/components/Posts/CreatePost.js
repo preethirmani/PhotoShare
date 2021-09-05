@@ -71,8 +71,10 @@ class CreatePost extends Component {
 
             <input type='file' className='crtPst inpt-crtPst '
              onChange = {this.uploadImage.bind(this)}/>
+
              <textarea className='crtPst txt-crtPst' name='text'
              value={this.state.text} onChange={this.onChange.bind(this)}/>
+             
              <Link  className='crtPst' 
              onClick = {this.onSubmit.bind(this)} 
              className="btn btn-primary btn-ctrPst">Submit Post</Link>

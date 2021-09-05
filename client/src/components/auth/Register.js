@@ -16,6 +16,7 @@ class Register extends Component {
       password: '',
       password2: '',
       avatar:'',
+       formData : new FormData(),
       errors: {}
     };
   }
@@ -134,9 +135,9 @@ class Register extends Component {
               <div className= "form-group form-control-register input-group mb-3">
               
                 <input type="file" id='avatar'
-                name="avatar" class="hidden"
-                value={this.state.avatar} 
+                name="avatar" value={this.state.avatar} 
                 onChange={this.uploadImage.bind(this)} />
+
                <label for='avatar'>Upload Profile Picture</label>
                </div>
 
