@@ -25,12 +25,22 @@ mongoose.connect(db)
 
 
 //First Route
-app.get('/', (req, res) => (res.send('Hello World! My First Route...')));
+//app.get('/', (req, res) => (res.send('Hello World! My First Route...')));
 
-const port = 5500;
+const port = process.env.PORT || 5500;
 app.listen(port, () => console.log(`Server running on Port ${port}!`));
 
 //Use Route
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts',posts);
+
+if(process.env.NODE_ENV === 'production') {
+        app.use(express.static('client/build'));
+        app.get('*',(req, res) => {
+         res.sendFile(path.resolve(
+                 __dirname, 'client', 'build','index.html'
+                ))
+         
+        })
+}
