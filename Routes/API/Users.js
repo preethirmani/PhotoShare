@@ -1,7 +1,6 @@
 const express = require('express');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
-const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const key = require('../../config/keys');
 const passport = require('passport');
