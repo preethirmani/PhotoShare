@@ -39,7 +39,7 @@ class EditProfile extends Component {
   }
 
   onClickDelete(e) {
-    this.props.deleteAccount();
+    this.props.deleteAccount(this.props.history);
   }
 
   render() {

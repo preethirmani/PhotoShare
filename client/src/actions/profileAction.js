@@ -132,7 +132,7 @@ export const getSuggestions = () => dispatch => {
 }
 
 // Delete account & profile
-export const deleteAccount = () => dispatch => {
+export const deleteAccount = (history) => dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     axios
       .delete('/api/profile/delete')
@@ -140,6 +140,7 @@ export const deleteAccount = () => dispatch => {
       {
         window.alert('Account deleted!')
         dispatch(logoutUser());
+     
       }
       )
       .catch(err =>

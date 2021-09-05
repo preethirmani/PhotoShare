@@ -48,15 +48,11 @@ class Post extends Component {
     let comments = post.comments.filter(comment => comment.user !== null)
     let hasLiked = false;
     let user;
-    
+    console.log('post.user._id' + post.user.id);
      if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
       hasLiked = true;
     } 
-    console.log('post.user === null'+(post.user === null));
-    if(post.user !== null) {
-      console.log('post.user os not nukk');
-      console.log('post.user._avatar'+post.user.avatar);
-    }
+   
     return (
       
      <div className= "card card-posts">
@@ -92,7 +88,7 @@ class Post extends Component {
             )
           }
                             
-          {post.user === auth.user.id ? (
+          {post.user._id === auth.user.id ? (
            <div type="button" className="button delete-btn"
               onClick={this.onDeleteClick.bind(this, post._id)}>
              <i className="fa fa-trash home-del-icon"  

@@ -55,7 +55,7 @@
 }
 .comment-content{
   width: 320px;
-  height: 550px;
+  height: 570px;
   border:  1px solid rgb(218, 215, 215);
   background-color: white;
 
@@ -136,7 +136,7 @@ a:active {
   background-color: white;
 }
 #footer {
-  margin-top: -76px;
+  margin-top: -99px;
   padding: 0px;
 }
 

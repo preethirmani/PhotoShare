@@ -71,7 +71,7 @@ dispatch({
 
 //Change Password
 export const changePasword = (passwordData) => dispatch =>{
-  console.log('passwordData::'+passwordData)
+ 
  
      axios
      .post('/api/users/changePassword', passwordData)
