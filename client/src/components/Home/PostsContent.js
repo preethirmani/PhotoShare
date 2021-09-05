@@ -13,7 +13,15 @@ class PostsContent extends Component {
   render() {
     const { posts } = this.props;
 
-    return posts.map(post => <Post key={post._id} post={post} />);
+    return posts.map(post => {
+
+      if(post.user !== null) {
+        return (
+           <Post key={post._id} post={post} />);
+        
+      }
+     
+    } )
   }
 
 }

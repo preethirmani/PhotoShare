@@ -48,6 +48,7 @@ router.post('/', passport.authenticate('jwt',{session:false}),
 router.get('/', passport.authenticate('jwt', {session:false}),
 (req, res) => {
   Post.find()
+      .populate('user',['avatar'])
       .sort({ date: -1 })
       .then(posts => res.json(posts))
       .catch(err => console.log(err))

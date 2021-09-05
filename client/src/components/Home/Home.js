@@ -43,7 +43,7 @@ class Home extends Component {
         </div>
     } else {
     
-      if(posts === null || loading || suggestions === null) {
+      if(posts === null || loading || suggestions === null ) {
 
              homeContent = <Spinner />;
 

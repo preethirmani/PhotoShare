@@ -39,18 +39,18 @@ if(!isValid) {
           return res.status(400).json({email: 'User already exists!'})
         } else {
           // Avatar Generation
-          const avatar = gravatar.url(req.body.email, {
+        /* const avatar = gravatar.url(req.body.email, {
             s: '200',
             r: 'pg',
             d: 'mm'
-          });
+          });*/
           
           const newUser = new User({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             username: req.body.username,
-            avatar
+            avatar : req.body.avatar
           });
 
           //Password Encryption

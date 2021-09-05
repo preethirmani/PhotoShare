@@ -47,18 +47,23 @@ class Post extends Component {
     let likedby = likedbyList.map(liked=> liked.handle);
     let comments = post.comments.filter(comment => comment.user !== null)
     let hasLiked = false;
+    let user;
     
      if (post.likes.filter(like => like.user === auth.user.id).length > 0) {
       hasLiked = true;
     } 
-    console.log( 'hasLiked' +  hasLiked);
+    console.log('post.user === null'+(post.user === null));
+    if(post.user !== null) {
+      console.log('post.user os not nukk');
+      console.log('post.user._avatar'+post.user.avatar);
+    }
     return (
       
      <div className= "card card-posts">
       <div className="post-title">
         <Link to={`/profilehanlde/${post.handle}`}>
           <img className='rounded-circle post-title-image'
-            src={auth.user.avatar} alt='avatar'/>
+            src={post.user.avatar} alt='avatar'/>
         </Link>
         <Link className='post-title-Link' to={`/profilehanlde/${post.handle}`}>
           <h6 className= "card-title post-title ">{post.handle}</h6>

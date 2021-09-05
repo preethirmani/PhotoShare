@@ -54,7 +54,7 @@ class CreatePost extends Component {
         image: data.secure_url,
         text: this.state.text
       };
-      console.log('newPost.text::'+newPost.text);
+      
       this.props.createNewpost(newPost, this.props.history)
     
     })

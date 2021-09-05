@@ -15,12 +15,26 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
+      avatar:'',
       errors: {}
     };
   }
 
   onChange(e) {
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  uploadImage(e) {
+    console.log(e.target.files[0]);
+    const d = new FormData();
+    d.append('file', e.target.files[0]);
+    d.append('upload_preset', 'fotoshare');
+    d.append('cloud_name','phtoshare')
+    console.log('imageURL::'+ URL.createObjectURL(e.target.files[0]));
+    
+    this.setState({
+      formData:d
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,15 +45,23 @@ class Register extends Component {
 
   onSubmit(e) {
      e.preventDefault();
-
-     const newUser = {
-       name: this.state.name,
-       email: this.state.email,
-       username: this.state.username,
-       password:this.state.password,
-       password2:this.state.password2
+     fetch(
+     "https://api.cloudinary.com/v1_1/phtoshare/image/upload", {
+      method: 'POST',  
+      body: this.state.formData  
+    }).then (res => res.json())
+      .then(data => {
+        console.log(data)
+        const newUser = {
+        name: this.state.name,
+        email: this.state.email,
+        username: this.state.username,
+        password:this.state.password,
+        password2:this.state.password2,
+        avatar:data.secure_url
      };
-     this.props.registerUser(newUser, this.props.history);
+      this.props.registerUser(newUser, this.props.history);
+    })
     
   }
 
@@ -107,8 +129,15 @@ class Register extends Component {
 
                 {errors.password2 && (
                   <div className="invalid-feedback">{errors.password2}</div>)}
-
               </div>
+
+              <div className= "form-group form-control-register input-group mb-3">
+
+                <input type="file" id='avatar'
+                name="avatar" value={this.state.avatar} 
+                onChange={this.uploadImage.bind(this)} />
+               
+               </div>
 
               <button type="submit" className="btn btn-primary">Sign Up</button>  
 

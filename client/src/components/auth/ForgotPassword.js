@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import lock from '../../img/Padlock.png';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { withRouter} from 'react-router-dom';
 import '../../css/forgotPassword.css';
 
 class ForgotPassword extends Component {
