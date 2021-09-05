@@ -139,6 +139,7 @@ export const deleteAccount = (history) => dispatch => {
       .then(res =>
       {
         window.alert('Account deleted!')
+        history.push('/home');
         dispatch(logoutUser());
      
       }

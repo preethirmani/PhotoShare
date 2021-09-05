@@ -84,7 +84,7 @@ class ChangePassword extends Component {
 
           </div>
 
-          <button type="submit" className= "btn btn-primary">Sign Up</button>
+          <button type="submit" className= "btn btn-primary">Submit</button>
 
         </form>
 

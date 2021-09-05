@@ -24,12 +24,12 @@ class Post extends Component {
   }
 
   onLikeClick(id) {
-    console.log('like'+id);
+   
     this.props.likePost(id);
   }
 
   onUnlikeClick(id) {
-    window.alert('Unlike'+id);
+   
     this.props.unlikePost(id);
   }
 
