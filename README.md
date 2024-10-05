@@ -1,5 +1,5 @@
 # PhotoShare
-Phot share App
+Phot share App - An instagram like application developed using MERN
 API Demonstration: https://youtu.be/jIlpoVRqvno 
 UI Demonstration:  https://youtu.be/efarexvopQ4
 
